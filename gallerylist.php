@@ -6,21 +6,21 @@
         <title>listing</title>
     </head>
     <body>
-        <a href="<?php echo get_permalink(18); ?>">Add Gallery</a><br /><br /><br />
+<!--        <a href="<?php //echo get_permalink(18);  ?>">Add Gallery</a><br /><br /><br />-->
+        <form method="post" action="?page=galleryadd">
+            <input type="submit" class="button-primary" value="Add Gallery" />       
+        </form>
         <table border="1">
             <tr>
                 <th>ID</th>
-                <th>GALLERY ID</th>
                 <th>GALLERY TITLE</th>
                 <th>IMAGE</th>
                 <th>UPDATE</th>
                 <th>DELETE</th>
             </tr>
             <?php foreach ($result as $key => $val) { ?>
-            <?php //echo '<pre>';print_r($result);exit; ?>
                 <tr>
                     <td><?php echo $val->id; ?></td>
-                    <td><?php echo $val->gallery_id; ?></td>
                     <td><?php echo $val->gallery_name; ?></td>
                     <td><?php echo $val->file; ?></td>
                     <td><a href="<?php echo get_permalink(18); ?>&id=<?php echo $val->id; ?>&method=update">Update</a></td>
