@@ -11,8 +11,9 @@
 
 function gallery_plugin_menu()
 {
-    add_options_page('gallery', 'gallery', 'manage_options', 'gallery', 'parse_gallery_shortcode');
-    add_options_page('galleryadd', 'galleryadd', 'manage_options', 'galleryadd', 'add_gallery_shortcode');
+    add_menu_page('gallery', 'gallery', 'manage_options', 'gallery', 'parse_gallery_shortcode');
+    // add_options_page('galleryadd', 'galleryadd', 'manage_options', 'galleryadd', 'add_gallery_shortcode');
+    add_submenu_page('gallery', 'Add Gallery', 'Add Gallery', 'manage_options', 'gallery' . '_about', 'add_gallery_shortcode');
 }
 
 add_action('admin_menu', 'gallery_plugin_menu');
@@ -129,28 +130,36 @@ function parse_gallery_shortcode()
     gallerylist();
 }
 
+/**
+ * add new gallery
+ * @global type $wpdb
+ */
 function add_gallery_shortcode()
 {
+    //create DB object
     global $wpdb;
+
     if ($_POST) {
 
         $fileName = $_FILES["galleryimages"]["name"];
         $fileTmpLoc = $_FILES["galleryimages"]["tmp_name"];
         $pathAndName = wp_upload_dir("/wordpress-categoried-galary-plugin/gallery/images/");
-       // var_dump($pathAndName['basedir']);exit;
-       $pathAndName =  $pathAndName['basedir'];
-        //$pathAndName = site_url('galary/images/');
+
+        //set file path
+        $pathAndName = $pathAndName['basedir'];
+        //create directory if not exists
         if (!file_exists($pathAndName)) {
             mkdir($pathAndName, 0777, true);
         }
-         $fileName = time() . $fileName;
-         //$moveResult = wp_upload_bits($pathAndName, null, file_get_contents($fileTmpLoc));
-        $moveResult = move_uploaded_file($fileTmpLoc, $pathAndName.'/'.$fileName);
+        //set file name
+        $fileName = time() . $fileName;
+        $moveResult = move_uploaded_file($fileTmpLoc, $pathAndName . '/' . $fileName);
 
-        $insert = $_POST;
-   
+        //insert gallery
         $wpdb->insert('wp_gallery', array(gallery_name => $_POST['gallerytitle'], gallery_image => $fileName));
-        header('Location: ' . get_permalink(20));
+        $redirect = add_query_arg(array('page' => 'gallery', 'gallery' => false, 'ids' => false));
+        //wp_redirect(admin_url('options-general.php?page=gallery'));
+        header('Location: ' . admin_url('options-general.php?page=gallery'));
         exit;
     }
 
@@ -165,4 +174,5 @@ function add_gallery_shortcode()
     }
     include ('galleryadd.php');
 }
+
 ?>

@@ -13,7 +13,7 @@
             </div>   
         </div>      
     </div><br />
-    <div class="form-group">
+<!--    <div class="form-group">
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-6">
@@ -22,7 +22,7 @@
                 </div>
             </div>   
         </div>      
-    </div><br />
+    </div><br />-->
     <div class="form-group">
         <div class="col-sm-12">
             <div class="row">
