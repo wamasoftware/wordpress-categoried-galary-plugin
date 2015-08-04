@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <title>listing</title>
@@ -16,7 +15,7 @@
                 // "sAjaxSource": siteUrl,
                 "aaSorting": [[0, "desc"]],
                 "aoColumnDefs": [
-                      {"bSortable": false, "aTargets": [2,3]},
+                    {"bSortable": false, "aTargets": [2, 3]},
                 ],
                 "fnServerData": function(sSource, aoData, fnCallback) {
                     $.ajax({
@@ -30,22 +29,36 @@
             });
         });
     </script>
+
+ <?php
+    if ($_SESSION['error'] != '') {
+        echo '<div id="message" class="error"><p>' .$_SESSION['error']. '</p></div>';
+        unset($_SESSION['error']);
+    }
+    if ($_SESSION['success'] != '') {
+        echo '<div id="message" class="updated"><p>' .$_SESSION['success']. '</p></div>';
+        unset($_SESSION['success']);
+    }
+?>
+
     <body>
         <br/>
+        <?php echo $_SESSION['success']; ?>
         <a class="button-primary" href="<?php echo admin_url('admin.php?page=galleryadd'); ?>">Add Gallery</a><br /><br /><br />
         <table border="1" id="gallery-table">
             <thead>
             <th>GALLERY TITLE</th>
             <th>IMAGE</th>
-            <th>UPDATE</th>
+            <th>EDIT</th>
             <th>DELETE</th>
         </thead>
         <tbody> 
             <?php foreach ($result as $key => $val) { ?>
+
                 <tr>
-                    <td><a href="<?php echo admin_url('admin.php?page=addgalleryimage&id=' . $val->id); ?>"><?php echo $val->gallery_name; ?></a></td>
-                    <td><img src="<?php echo site_url() . "/wp-content/uploads/" . $val->gallery_image ?>"></td>
-                    <td><a href="<?php echo admin_url('admin.php?page=galleryadd&id=' . $val->id . '&method=update'); ?>">Update</a></td>
+                    <td><a href="<?php echo admin_url('admin.php?page=galleryadd&id=' . $val->id . '&method=update'); ?>"><?php echo $val->gallery_name; ?></a></td>
+                    <td><img src="<?php echo site_url() . "/wp-content/uploads/images/" . $val->gallery_image ?>" hieght="200" width="200"></td>
+                    <td><a href="<?php echo admin_url('admin.php?page=galleryadd&id=' . $val->id . '&method=update'); ?>">Edit</a></td>
                     <td><a href="<?php echo admin_url('admin.php?page=galleryadd&id=' . $val->id . '&method=delete'); ?>" class="deleteRecord">Delete</a></td>
                 </tr>
             <?php } ?>
