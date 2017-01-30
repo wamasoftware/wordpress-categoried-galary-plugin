@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name:Cateorized Gallery Plugin
-Description:in this you can add images category wise,
+Description:In this you can add images category wise,
 Version: 1
 Author: wamasoftware
 Author URI: http://wamasoftware.com
@@ -11,14 +11,12 @@ Author URI: http://wamasoftware.com
 ob_start();
 function gallery_options_install()
 {
-
 				$upload = wp_upload_dir();
 			    $upload_dir = $upload['basedir'];
 			    $upload_dir = $upload_dir . '/categoryimg';
 			    if (! is_dir($upload_dir)) {
 			       mkdir( $upload_dir, 0777 );
 			    }
-
 				global $wpdb;
 				$table_name=$wpdb->prefix . "galcategory";
 				$charset_collate = $wpdb->get_charset_collate();
@@ -30,7 +28,6 @@ function gallery_options_install()
 					`publish` int(11) NOT NULL,
 					PRIMARY KEY (`catid`) 
 					) $charset_collate;";
-
 				  require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			    	dbDelta($sql);
 
@@ -68,57 +65,54 @@ function gallery_menu()
 				'add_new_gallery_images', //menu slug
 				'add_new_gallery_images'); //function
 
+				add_submenu_page(null,
+				'List gallery album', 
+				'list gallery album', 
+				'manage_options', 
+				'add_gallary_images', 
+				'add_gallary_images'); 
 
-				add_submenu_page(null, //parent slug
-				'List gallery album', //page title
-				'list gallery album', //menu title
-				'manage_options', //capability
-				'add_gallary_images', //menu slug
-				'add_gallary_images'); //function
+				add_submenu_page(null,
+				'delete gallery album',
+				'delete gallery album',
+				'manage_options',
+				'delete_gallery_album',
+				'delete_gallery_album');
 
-				add_submenu_page(null, //parent slug
-				'delete gallery album', //page title
-				'delete gallery album', //menu title
-				'manage_options', //capability
-				'delete_gallery_album', //menu slug
-				'delete_gallery_album'); //function
+				add_submenu_page(null, 
+				'delete gallery title',
+				'delete gallery title',
+				'manage_options', 
+				'delete_gallery_title',
+				'delete_gallery_title');
 
-				add_submenu_page(null, //parent slug
-				'delete gallery title', //page title
-				'delete gallery title', //menu title
-				'manage_options', //capability
-				'delete_gallery_title', //menu slug
-				'delete_gallery_title'); //function
+				add_submenu_page(null,
+				'user gallery publish',
+				'user gallery publish',
+				'manage_options',
+				'update_publish_gallery_image',
+				'update_publish_gallery_image');
 
-				add_submenu_page(null, //parent slug
-				'user gallery publish', //page title
-				'user gallery publish', //menu title
-				'manage_options', //capability
-				'update_publish_gallery_image', //menu slug
-				'update_publish_gallery_image'); //function
+				add_submenu_page(null, 
+				'user album publish', 
+				'user album publish',
+				'manage_options',
+				'update_publish_gallery_album',
+				'update_publish_gallery_album'); 
 
-				add_submenu_page(null, //parent slug
-				'user album publish', //page title
-				'user album publish', //menu title
-				'manage_options', //capability
-				'update_publish_gallery_album', //menu slug
-				'update_publish_gallery_album'); //function
+				add_submenu_page(null,
+				'user image crop',
+				'user image crop',
+				'manage_options',
+				'image_resize_crop1',
+				'image_resize_crop1');
 
-
-				add_submenu_page(null, //parent slug
-				'user image crop', //page title
-				'user image crop', //menu title
-				'manage_options', //capability
-				'image_resize_crop1', //menu slug
-				'image_resize_crop1'); //function
-
-				add_submenu_page(null, //parent slug
-				'user image reset', //page title
-				'user image reset', //menu title
-				'manage_options', //capability
-				'reset_image', //menu slug
-				'reset_image'); //function
-				
+				add_submenu_page(null,
+				'user image reset', 
+				'user image reset', 
+				'manage_options', 
+				'reset_image', 
+				'reset_image'); 		
 			}
 			define('ROOTDIR1', plugin_dir_path(__FILE__));
 			require_once(ROOTDIR1 . 'add_new_images.php');
@@ -149,7 +143,6 @@ function category_shortcode($attr)
 {
 	if(!empty($attr))
 	{
-	
 		$cat_id = $attr['field'];	
 		global $wpdb;
    		$tblname=$wpdb->prefix . "galimage";

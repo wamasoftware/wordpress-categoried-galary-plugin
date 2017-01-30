@@ -1,4 +1,3 @@
-
 <?php
 	function list_gallery_images()
 	{
@@ -13,12 +12,11 @@
 		<h2>List of Gallery</h2>
 		<form>
 		<button type="Button" onclick="javascript:window.location='<?php echo $url ?>';" class="button button-primary button-large">Add gallery</button>
-
 		<br><br>
 		</form>
 		<div class="wrap">
 		<table border="1" class="widefat striped" style="text-align:center;"  >
-			<thead>
+			<thead style="background-color:lightblue">
 			<tr>
 				<th style="text-align:center;">Id</th>
 				<th style="text-align:center;">Title</th>
@@ -39,14 +37,11 @@
 				$catid=$res->catid;
 				$img1=$res->catimage;
 				$pub=$res->publish;
-				//add_shortcode( 'image-gallery-'.$res->catid, 'add_gallary_images' );
 				$result1 = $wpdb->get_results("SELECT COUNT(*) AS `count` from $table_name1 where catid='$catid'");
-				//print_r($result1);
 				foreach($result1 as $res1)
 				{
 					$coun=$res1->count;
 				}
-
 			?>
 			<tbody>
 					<tr>
@@ -83,10 +78,11 @@
 	<html>
 <head>
 	<script>
-	function checkDelete(){
-    return confirm('Are you sure want to Delete?');
-}
-</script>
+	function checkDelete()
+	{
+     	return confirm('Are you sure want to Delete?');
+	}
+	</script>
 </head>
 	<?php
 	}

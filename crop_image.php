@@ -1,6 +1,8 @@
 
 <?php
+// Crop image
 ob_start();
+// include css and js function
 function add_css_js() {
 wp_enqueue_script('inkthemes1', plugins_url( 'js/jquery.Jcrop.min.js' , __FILE__ ) , array( 'jquery' ));
 wp_enqueue_script('inkthemes2', plugins_url( 'js/jquery.Jcrop.js' , __FILE__ ) , array( 'jquery' ));
@@ -10,12 +12,7 @@ wp_enqueue_style('inkthemes3', plugins_url( "/css/jquery.Jcrop.css" , __FILE__ )
 wp_localize_script( 'inkthemes4', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
 }
 add_action( 'admin_init','add_css_js');
-
-
-
-
 // including ajax script in the plugin Myajax.ajaxurl
-
 function image_resize_crop1()
 {
      $imgid=$_REQUEST[id];
@@ -27,18 +24,15 @@ function image_resize_crop1()
         foreach($result as $res)
                 {
                     $img1=$res->imagecrop;
-                   ?> 
-                      
+                   ?>  
                         <img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1"; ?>" align="center" id="cropbox" name="thumbnail"/>
-                        
                     <?php
                 }
 ?>
 <html>
     <head>
-
+<!-- script for crop image-->
 <script type="text/javascript">
- 
             jQuery('document').ready(function(){
                                  jQuery('#cropbox').imgAreaSelect({
                         onSelectEnd: function (img, selection) {
@@ -48,18 +42,15 @@ function image_resize_crop1()
                             jQuery('input[name="h"]').val(selection.y2);            
                         }
                     });
-                
                 jQuery('#cropbox').Jcrop({
                     aspectRatio: 1,
                     onSelect: updateCoords
                 });
-                    
                       jQuery('#cropbox').imgAreaSelect({
                        aspectRatio: '1:1',
                         onSelectChange: preview 
                 });
             });
-            
             function updateCoords(c)
             {
                 jQuery('#x').val(c.x);
@@ -78,22 +69,20 @@ function image_resize_crop1()
 </head>
 <div id="outer">
     <div class="jcExample">
-    <div class="article">
-        <form action="" method="post" onsubmit="return checkCoords();" enctype="multipart/form-data">
-           
-            <input type="hidden" id="x" name="x" />
-            <input type="hidden" id="y" name="y" />
-            <input type="hidden" id="w" name="w" />
-            <input type="hidden" id="h" name="h" /><br><br>
-            <input type="submit" name="crop_img" value="Crop Image" class="button button-primary button-large"/>
-        </form>
+        <div class="article">
+            <form action="" method="post" onsubmit="return checkCoords();" enctype="multipart/form-data">
+                <input type="hidden" id="x" name="x" />
+                <input type="hidden" id="y" name="y" />
+                <input type="hidden" id="w" name="w" />
+                <input type="hidden" id="h" name="h" /><br><br>
+                <input type="submit" name="crop_img" value="Crop Image" class="button button-primary button-large"/>
+            </form>
+        </div>
     </div>
-    </div>
-    </div>
+</div>
     <?php
 if(isset($_POST['crop_img']))
-{
-        
+{    
         $upload_path =   $src = $upload_dir['basedir'] . "/categoryimg/";
         $random= strtotime(date('Y-m-d H:i:s')); //assign the timestamp to the session variable
         $thumb_width =   $w = $_POST["w"];
@@ -102,7 +91,6 @@ if(isset($_POST['crop_img']))
         $start_width, $start_height, $scale){
         list($imagewidth, $imageheight, $imageType) = getimagesize($image);
         $imageType = image_type_to_mime_type($imageType);
-
         $newImageWidth = ceil($width * $scale);
         $newImageHeight = ceil($height * $scale);
         $newImage = imagecreatetruecolor($newImageWidth,$newImageHeight);
@@ -136,7 +124,6 @@ if(isset($_POST['crop_img']))
         imagepng($newImage,$thumb_image_name); 
         break;
         }
-        //chmod($thumb_image_name, 0777);
         return $thumb_image_name;
         }
 
@@ -179,6 +166,7 @@ if(isset($_POST['crop_img']))
 ?>
 
 <?php
+    // reset image
     function reset_image()
     {
             $imgid=$_REQUEST[id];

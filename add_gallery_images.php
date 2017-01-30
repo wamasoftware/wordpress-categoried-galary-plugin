@@ -1,7 +1,6 @@
 <?php
 ob_start();
 function add_gallary_images()
-
 {
 ?>	
 	<div class="wrap">
@@ -29,33 +28,21 @@ if(isset($_POST['btnsubmit']))
 <?php
 	}
 	$category=$_REQUEST['catid'];
-	//echo $category;
 	if(isset($_POST['btnsave']) && (isset($_POST['btnsave'])) != "")
 	{
-
 				$allowed_filetypes = array('.jpeg' ,'.png','.jpg','.gif','.ico'); // These will be the types of file that will pass the validation.
-				$max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
+				$max_filesize = 524288;
 				$uploads = wp_upload_dir();
 				$base1=$uploads[basedir];
-				//print_r($base1);
 				$upload_path = $base1.'/categoryimg'; // The place the files will be uploaded to (currently a 'files' directory).
-				//print_r($upload_path);
 				$filename = $_FILES['fileup']['name']; // Get the name of the file (including file extension).
 				$ext = substr($filename, strpos($filename,'.'), strlen($filename)-1); // Get the extension from the filename.
-				
-				// Check if the filetype is allowed, if not DIE and inform the user.
 				if(!in_array($ext,$allowed_filetypes))
 				die('The file you attempted to upload is not allowed.');
-
-				// Now check the filesize, if it is too large then DIE and inform the user.
 				if(filesize($_FILES['userfile']['tmp_name']) > $max_filesize)
 				die('The file you attempted to upload is too large.');
-
-				// Check if we can upload to the specified path, if not DIE and inform the user.
 				if(!is_writable($upload_path))
 				die('You cannot upload to the specified directory, please CHMOD it to 777.');
-
-				// Upload the file to your specified path.
 				if(move_uploaded_file($_FILES['fileup']['tmp_name'],$upload_path ."/" .$filename))
 				{
 				//echo 'Your file upload was successful, view the file <a href="' . $upload_path . $filename . '" title="Your File">here</a>'; // It worked.
@@ -65,11 +52,6 @@ if(isset($_POST['btnsubmit']))
 				echo 'There was an error during the file upload.  Please try again.';
 				}
 				
-
-
-
-
-
 			global $wpdb;
             $table_name=$wpdb->prefix . "galimage";
 			if($filename != "" ) 
@@ -79,19 +61,13 @@ if(isset($_POST['btnsubmit']))
                             array( 'catid' =>$category,'imagenm'=>$filename,'imagecrop'=>$filename,'publish'=>'1','catpub'=>'1'
                             )
                                 );
-                    //echo "success.......";
-                
             }
 	}
-
-
-		//$url=admin_url('admin.php?page=add_new_gallery_images');
 		$i=1;
 		global $wpdb;
 			$plugpath = plugin_dir_url( __FILE__ );
 	   $table_name=$wpdb->prefix . "galimage";
 		$result = $wpdb->get_results("SELECT * from $table_name where catid='$category'");
-
 		?>
 		<div class="wrap">
 			<div class="manage-menus">
@@ -99,6 +75,7 @@ if(isset($_POST['btnsubmit']))
 					<thead style="background-color:lightblue">
 							<tr>
 								<th style="text-align:center;font-weight:bold" >No</th>
+								<th style="text-align:center;"><input type="checkbox" name="select_all" id="select_all" value="" onClick="EnableCheckBox(this)" /></th>
 								<th style="text-align:center;font-weight:bold" >Image</th>
 								<th style="text-align:center;font-weight:bold" >Image name</th>
 								<th style="text-align:center;font-weight:bold" >Publish</th>
@@ -113,13 +90,13 @@ if(isset($_POST['btnsubmit']))
 						$catid=$res->catid;
 						$pub=$res->publish;
 					$upload_dir = wp_upload_dir();
-					//print_r($upload_dir)
-						
 					?>
 					<tbody>
+						<form method="post" name="f1" Action="<?php echo admin_url('admin.php?page=delete_gallery_album&catid='.$res->catid); ?>" onSubmit="validate();">
 					<tr>
 						<td><?php echo $i++; ?></td>
-						<td><img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img"; ?>" height="100" width="150" title="Image" style="cursor:pointer"/></td>
+						<td align="center"><input type="checkbox" name="checked_id[]" class="checkbox" value="<?php echo stripslashes($res->imgid); ?>" onClick="EnableSubmit(this)" id="cb1"/></td> 
+						<td><img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img"; ?>" height="100" width="150" title="Image" style="cursor:pointer" /></td>
 						<td>
 							<?php echo $img1;?>
 							<div>
@@ -141,22 +118,62 @@ if(isset($_POST['btnsubmit']))
 						<td><a href="<?php echo admin_url('admin.php?page=delete_gallery_album&id=' . $res->imgid ); ?>" onclick="return checkDelete()" title="Delete"><img src="<?php echo $plugpath.'/icons/delete.png'?>" height="30" width="30"></a></td>
 					</tr>
 				</tbody>
-			
+
 					<?php
 						}
 						
 					?>
+					<tr><td></td><td><input type="submit" name="btn1" value="delete" id="btn1" disabled></td><td></td><td></td><td></td><td></td></tr>
+				</form>
 				</table>
 			</div>
 		</div>
-
 	<script>
 	function checkDelete(){
 	    return confirm('Are you sure want to Delete?');
 	}
-	</script>
+    jQuery(document).ready(function(){
+    jQuery('#select_all').on('click',function(){
+        if(this.checked){
+            jQuery('.checkbox').each(function(){
+                this.checked = true;
+            });
+        }else{
+             jQuery('.checkbox').each(function(){
+                this.checked = false;
+            });
+        }
+    });
+});
 
+   function EnableSubmit(val)
+	{
+	    var sbmt = document.getElementById("btn1");
+	    var check = jQuery("input:checkbox:checked").length;
+	    if(check==0)
+	    {
+	        sbmt.disabled = true;
+	    }
+	    else
+	    {
+	        sbmt.disabled =false;
+	    }
+	} 
+
+function EnableCheckBox(val)
+{
+	var sbmt = document.getElementById("btn1");
+    if (val.checked == true)
+    {
+        sbmt.disabled = false;
+    }
+    else
+    {
+        sbmt.disabled = true;
+    }
+}
+	</script>
 <?php
-	}
+}
 ob_flush();
 ?>

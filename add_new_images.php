@@ -9,25 +9,15 @@ function add_new_gallery_images()
                 $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
                 $uploads = wp_upload_dir();
                 $base1=$uploads[basedir];
-                //print_r($base1);
                 $upload_path = $base1.'/categoryimg'; // The place the files will be uploaded to (currently a 'files' directory).
-                //print_r($upload_path);
                 $filename = $_FILES['fileup1']['name']; // Get the name of the file (including file extension).
                 $ext = substr($filename, strpos($filename,'.'), strlen($filename)-1); // Get the extension from the filename.
-                
-                // Check if the filetype is allowed, if not DIE and inform the user.
                 if(!in_array($ext,$allowed_filetypes))
                 die('The file you attempted to upload is not allowed.');
-
-                // Now check the filesize, if it is too large then DIE and inform the user.
                 if(filesize($_FILES['userfile']['tmp_name']) > $max_filesize)
                 die('The file you attempted to upload is too large.');
-
-                // Check if we can upload to the specified path, if not DIE and inform the user.
                 if(!is_writable($upload_path))
                 die('You cannot upload to the specified directory, please CHMOD it to 777.');
-
-                // Upload the file to your specified path.
                 if(move_uploaded_file($_FILES['fileup1']['tmp_name'],$upload_path ."/" .$filename))
                 {
                 //echo 'Your file upload was successful, view the file <a href="' . $upload_path . $filename . '" title="Your File">here</a>'; // It worked.
@@ -36,17 +26,12 @@ function add_new_gallery_images()
                 {
                 echo 'There was an error during the file upload.  Please try again.';
                 }
-
-
-
-
         	$title=$_POST['gallery'];
         	global $wpdb;
             $table_name=$wpdb->prefix . "galcategory";
             $p=1;
             if($title != "" &&  $filename != "") 
             {
-                
                     $wpdb->insert( $table_name, 
                             array( 'categorynm' =>$title,'catimage'=>$filename,'date'=>$datetime,'publish'=>$p
                             )
@@ -59,32 +44,21 @@ function add_new_gallery_images()
             	echo '<div id="message" class="updated notice notice-success is-dismissible">please enter name and upload image.</div>';
             }
         }
-
     elseif(isset($_POST["btnupdate"]) != "")
         {
             $allowed_filetypes = array('.jpeg' ,'.png','.jpg','.gif','.ico'); // These will be the types of file that will pass the validation.
                 $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
                 $uploads = wp_upload_dir();
                 $base1=$uploads[basedir];
-                //print_r($base1);
                 $upload_path = $base1.'/categoryimg'; // The place the files will be uploaded to (currently a 'files' directory).
-                //print_r($upload_path);
                 $filename = $_FILES['catfile1']['name']; // Get the name of the file (including file extension).
                 $ext = substr($filename, strpos($filename,'.'), strlen($filename)-1); // Get the extension from the filename.
-                
-                // Check if the filetype is allowed, if not DIE and inform the user.
                 if(!in_array($ext,$allowed_filetypes))
                 die('The file you attempted to upload is not allowed.');
-
-                // Now check the filesize, if it is too large then DIE and inform the user.
                 if(filesize($_FILES['userfile']['tmp_name']) > $max_filesize)
                 die('The file you attempted to upload is too large.');
-
-                // Check if we can upload to the specified path, if not DIE and inform the user.
                 if(!is_writable($upload_path))
                 die('You cannot upload to the specified directory, please CHMOD it to 777.');
-
-                // Upload the file to your specified path.
                 if(move_uploaded_file($_FILES['catfile1']['tmp_name'],$upload_path ."/" .$filename))
                 {
                 //echo 'Your file upload was successful, view the file <a href="' . $upload_path . $filename . '" title="Your File">here</a>'; // It worked.
@@ -107,8 +81,6 @@ function add_new_gallery_images()
         wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
             
         }
-
-
 ?>
 <?php
     if (isset($_REQUEST['id']))
@@ -131,7 +103,7 @@ function add_new_gallery_images()
             Gallery Title
         </h1>
         <div id="titlediv" class="gallary-post">
-            <input name="gallery1" size="30" value="" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text"  value="<?php echo $galnm; ?>">
+            <input name="gallery1" size="30" value="<?php echo $galnm; ?>" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text"  value="<?php echo $galnm; ?>">
         </div>
        <h1>
             Images:
