@@ -1,5 +1,6 @@
 <?php
 ob_start();
+
 function update_publish_gallery_image()
 {
 	$id=$_REQUEST['id'];

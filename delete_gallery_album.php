@@ -1,4 +1,6 @@
 <?php
+
+
 function delete_gallery_album()
 	{
 		 global $wpdb;

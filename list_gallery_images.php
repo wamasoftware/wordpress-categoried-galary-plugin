@@ -1,3 +1,5 @@
+
+
 <?php
 	function list_gallery_images()
 	{

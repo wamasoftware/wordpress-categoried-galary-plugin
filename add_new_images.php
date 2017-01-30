@@ -1,5 +1,8 @@
 <?php
 ob_start();
+
+
+
 function add_new_gallery_images()
 {
  if(isset($_POST["btnsubmit"]) != "")

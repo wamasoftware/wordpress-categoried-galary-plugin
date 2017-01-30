@@ -1,7 +1,7 @@
 
 <?php
 // Crop image
-ob_start();
+  ob_start();
 // include css and js function
 function add_css_js() {
 wp_enqueue_script('inkthemes1', plugins_url( 'js/jquery.Jcrop.min.js' , __FILE__ ) , array( 'jquery' ));
