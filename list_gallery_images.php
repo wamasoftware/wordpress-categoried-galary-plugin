@@ -1,5 +1,3 @@
-
-
 <?php
 	function list_gallery_images()
 	{
@@ -7,7 +5,7 @@
 		$url=admin_url('admin.php?page=add_new_gallery_images');
 		$i=1;
 		global $wpdb;
-	   $table_name=$wpdb->prefix . "galcategory";
+	    $table_name=$wpdb->prefix . "galcategory";
 	    $table_name1=$wpdb->prefix . "galimage";
 		$result = $wpdb->get_results("SELECT * from $table_name");
 		?>
@@ -77,7 +75,7 @@
 			?>
 		</table>
 	</div>
-	<html>
+<html>
 <head>
 	<script>
 	function checkDelete()
@@ -86,7 +84,7 @@
 	}
 	</script>
 </head>
+</html>
 	<?php
 	}
 	?>
-	</html>

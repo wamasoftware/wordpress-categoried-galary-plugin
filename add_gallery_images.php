@@ -65,8 +65,8 @@ if(isset($_POST['btnsubmit']))
 	}
 		$i=1;
 		global $wpdb;
-			$plugpath = plugin_dir_url( __FILE__ );
-	   $table_name=$wpdb->prefix . "galimage";
+		$plugpath = plugin_dir_url( __FILE__ );
+	    $table_name=$wpdb->prefix . "galimage";
 		$result = $wpdb->get_results("SELECT * from $table_name where catid='$category'");
 		?>
 		<div class="wrap">

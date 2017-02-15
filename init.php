@@ -1,5 +1,3 @@
-
-
 <?php
 /*
 Plugin Name:Cateorized Gallery Plugin
@@ -143,54 +141,10 @@ add_shortcode( 'image_gallery', 'category_shortcode' );
 
 function category_shortcode($attr)
 {
-	if(!empty($attr))
-	{
-		$cat_id = $attr['field'];	
-		global $wpdb;
-   		$tblname=$wpdb->prefix . "galimage";
-   		$result = $wpdb->get_results("SELECT * from $tblname WHERE catid = '$cat_id' AND publish='1' AND catpub='1'");
-   		if(!empty($result))
-   		{
-   				$val=0;
-   			$upload_dir = wp_upload_dir();
-   		?>
-   		<table>
-   			<tr>
-   		<?php	
-
-   			foreach($result as $res)
-   			{
-   		?>	
-   		<td> 
-		<div class="tooltip">
-		<img class="fancybox" src="<?php echo $upload_dir[baseurl] . "/categoryimg/$res->imagenm"; ?>" data-big="<?php echo $upload_dir[baseurl] . "/categoryimg$res->imagenm"; ?>"/> <span class="tooltiptext">Zoom Out</span></td>
-		</div>
-  
-
-   		<?php
-   				$val++;
-   				if($val==3)
-   				{
-   					echo "</tr>";
-   					$val=1;
-   				}	
-   			}
-   		?>
-   			
-   		</table>
-   		<?php	
-   		}
-   		else
-   		{
-   			echo "<b style='text-align: center;color:red;'>Please publish this category.</b>";
-   		}
-	}
-	
-
-}			
 ?>
-
+	
 <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
+
 <style type="text/css">
     a.fancybox img {
 		max-height:200px;
@@ -265,6 +219,54 @@ function category_shortcode($attr)
     });
     $.noConflict();
 </script>
+<?php
+	if(!empty($attr))
+	{
+		$cat_id = $attr['field'];	
+		global $wpdb;
+   		$tblname=$wpdb->prefix . "galimage";
+   		$result = $wpdb->get_results("SELECT * from $tblname WHERE catid = '$cat_id' AND publish='1' AND catpub='1'");
+   		if(!empty($result))
+   		{
+   				$val=0;
+   			$upload_dir = wp_upload_dir();
+   		?>
+   		<table>
+   			<tr>
+   		<?php	
+			foreach($result as $res)
+   			{
+   		?>	
+   			<td> 
+			<div class="tooltip">
+			<img class="fancybox" src="<?php echo $upload_dir[baseurl] . "/categoryimg/$res->imagenm"; ?>" data-big="<?php echo $upload_dir[baseurl] . "/categoryimg$res->imagenm"; ?>"/>
+			 <span class="tooltiptext">Zoom Out</span>
+		     </div>
+			</td>
+			
+  
+			<?php
+				$val++;
+   				if($val==3)
+   				{
+   					echo "</tr><tr>";
+   					$val=1;
+   				}	
+   			}
+   			?>
+   		</table>
+   		<?php	
+   		}
+   		else
+   		{
+   			echo "<b style='text-align: center;color:red;'>Please publish this category.</b>";
+   		}
+	}
+	
+
+}			
+?>
+
 <?php
 ob_flush();
 ?>
