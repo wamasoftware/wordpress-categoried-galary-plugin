@@ -15,19 +15,19 @@
 		<br><br>
 		</form>
 		<div class="wrap">
-		<table border="1" class="widefat striped" style="text-align:center;"  >
-			<thead style="background-color:lightblue">
+		<table id="example1" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                   <thead>
 			<tr>
-				<th style="text-align:center;">Id</th>
-				<th style="text-align:center;">Title</th>
-				<th style="text-align:center;">Image</th>
-				<th style="text-align:center;">Media</th>
-				<th style="text-align:center;">Date</th>
-				<th style="text-align:center;">Publish</th>
-				<th style="text-align:center;">Add images</th>
-				<th style="text-align:center;">Short code</th>
-				<th style="text-align:center;">Edit</th>
-				<th style="text-align:center;">Delete</th>
+				<th>Id</th>
+				<th>Title</th>
+				<th>Image</th>
+				<th>Media</th>
+				<th>Date</th>
+				<th>Publish</th>
+				<th>Add images</th>
+				<th>Short code</th>
+				<th>Edit</th>
+				<th>Delete</th>
 			</tr>
 		</thead>
 			<?php
@@ -78,9 +78,13 @@
 <html>
 <head>
 	<script>
+            
+        jQuery(document).ready(function() {
+            jQuery('#example1').DataTable();
+        } );
 	function checkDelete()
 	{
-     	return confirm('Are you sure want to Delete?');
+     	return confirm('Are you sure you want to Delete All images?');
 	}
 	</script>
 </head>

@@ -3,16 +3,6 @@
 // Crop image
   ob_start();
 // include css and js function
-function add_css_js() {
-wp_enqueue_script('inkthemes1', plugins_url( 'js/jquery.Jcrop.min.js' , __FILE__ ) , array( 'jquery' ));
-wp_enqueue_script('inkthemes2', plugins_url( 'js/jquery.Jcrop.js' , __FILE__ ) , array( 'jquery' ));
-wp_enqueue_script('inkthemes2', plugins_url( 'js/jquery-pack.js' , __FILE__ ) , array( 'jquery' ));
-wp_enqueue_script('inkthemes5s', plugins_url( 'js/jquery.imgareaselect.min.js' , __FILE__ ) , array( 'jquery' ));
-wp_enqueue_style('inkthemes3', plugins_url( "/css/jquery.Jcrop.css" , __FILE__ ));
-wp_localize_script( 'inkthemes4', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
-}
-add_action( 'admin_init','add_css_js');
-// including ajax script in the plugin Myajax.ajaxurl
 function image_resize_crop1()
 {
      $imgid=$_REQUEST[id];
@@ -25,7 +15,7 @@ function image_resize_crop1()
                 {
                     $img1=$res->imagecrop;
                    ?>  
-                        <img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1"; ?>" align="center" id="cropbox" name="thumbnail"/>
+<img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1";?>" align="center" id="cropbox" name="thumbnail" height="70%" width="70%"/>
                     <?php
                 }
 ?>

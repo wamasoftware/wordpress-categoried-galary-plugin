@@ -18,7 +18,7 @@ if(isset($_POST['btnsubmit']))
 		<div class="wrap manage-menus">
 			<h3 class="">Add Album image</h3>
 			<div class="upload-images">
-				<input type="file" name="fileup">
+				<input type="file" name="fileup" required>
 			</div>
 			<div class="">
 				<input type="submit" value="save" name="btnsave" class="button button-primary button-large">
@@ -71,15 +71,15 @@ if(isset($_POST['btnsubmit']))
 		?>
 		<div class="wrap">
 			<div class="manage-menus">
-				<table border='1' class="wp-list-table widefat fixed striped pages" style="text-align:center;"  >
-					<thead style="background-color:lightblue">
+				<table id="example" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                    <thead>
 							<tr>
-								<th style="text-align:center;font-weight:bold" >No</th>
-								<th style="text-align:center;"><input type="checkbox" name="select_all" id="select_all" value="" onClick="EnableCheckBox(this)" /></th>
-								<th style="text-align:center;font-weight:bold" >Image</th>
-								<th style="text-align:center;font-weight:bold" >Image name</th>
-								<th style="text-align:center;font-weight:bold" >Publish</th>
-								<th style="text-align:center;font-weight:bold" >Delete</th>
+								<th>No</th>
+								<th><input type="checkbox" name="select_all" id="select_all" value="" onClick="EnableCheckBox(this)" /></th>
+								<th>Image</th>
+								<th>Image name</th>
+								<th>Publish</th>
+								<th>Delete</th>
 							</tr>
 					</thead>
 					<?php
@@ -130,7 +130,7 @@ if(isset($_POST['btnsubmit']))
 		</div>
 	<script>
 	function checkDelete(){
-	    return confirm('Are you sure want to Delete?');
+	    return confirm('Are you sure you  want to Delete?');
 	}
     jQuery(document).ready(function(){
     jQuery('#select_all').on('click',function(){
@@ -145,6 +145,9 @@ if(isset($_POST['btnsubmit']))
         }
     });
 });
+jQuery(document).ready(function() {
+    jQuery('#example').DataTable();
+} );
 
    function EnableSubmit(val)
 	{

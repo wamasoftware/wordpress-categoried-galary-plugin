@@ -1,7 +1,4 @@
 <?php
-
-
-
 function delete_gallery_title()
 	{
 		 global $wpdb;

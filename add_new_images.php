@@ -100,21 +100,22 @@ function add_new_gallery_images()
         }
             $upload_dir = wp_upload_dir();
 ?>
+<div class="wrap">
+    <h1>Gallery Title </h1>
     <form method="post" enctype="multipart/form-data">
         <div class="wrap gallary-image">
-        <h1>
-            Gallery Title
-        </h1>
-        <div id="titlediv" class="gallary-post">
-            <input name="gallery1" size="30" value="<?php echo $galnm; ?>" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text"  value="<?php echo $galnm; ?>">
+        
+         <div class="gallary-image card">
+            <div id="titlediv" class="gallary-post">
+            <input name="gallery1" size="30" value="<?php echo $galnm; ?>" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text"  value="<?php echo $galnm; ?>" required>
         </div>
        <h1>
             Images:
         </h1>
         <div class="gallary-image-upload">
-            <input name="catfile1" id="gallary-image" type="file"> </div> 
+            <input name="catfile1" id="gallary-image" type="file" required>  
         <img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1"; ?>" height="100" width="100"/>
-         
+         </div>
         <div style="margin-top:10px;">
             <input type="submit" value="Update gallery" name="btnupdate" class="button button-primary button-large">
         </div>
@@ -133,13 +134,13 @@ function add_new_gallery_images()
     <form method="post" enctype="multipart/form-data">
         <div class="gallary-image card">
             <div id="titlediv" class="gallary-post">
-                <input name="gallery" size="30" value="" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text">
+                <input name="gallery" size="30" value="" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text" required>
             </div>
            <h1>
                 Images:
             </h1>
             <div class="gallary-image-upload">
-                <input name="fileup1" id="gallary-image" type="file">
+                <input name="fileup1" id="gallary-image" type="file" required>
             </div>
             <div style="margin-top:10px;">
                 <input type="submit" value="Add gallery" name="btnsubmit" class="button button-primary button-large">

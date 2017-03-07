@@ -137,7 +137,27 @@ function gallery_plugin_remove_database()
      
 }    
 register_deactivation_hook( __FILE__, 'gallery_plugin_remove_database' );
-add_shortcode( 'image_gallery', 'category_shortcode' );		
+add_shortcode( 'image_gallery', 'category_shortcode' );
+function add_css_js_galleryplug() {
+    wp_enqueue_style('theme-itme1', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+    wp_enqueue_style('theme-itme2', 'https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css');
+    wp_enqueue_style('theme-itme3', 'https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css');
+    
+    wp_enqueue_script('inkthemes1', plugins_url( 'js/jquery.Jcrop.min.js' , __FILE__ ));
+    wp_enqueue_script('inkthemes2', plugins_url( 'js/jquery.Jcrop.js' , __FILE__ ));
+    wp_enqueue_script('inkthemes2', plugins_url( 'js/jquery-pack.js' , __FILE__ ));
+    wp_enqueue_script('inkthemes5s', plugins_url( 'js/jquery.imgareaselect.min.js', __FILE__ ));
+    wp_enqueue_style('inkthemes3', plugins_url( "/css/jquery.Jcrop.css" , __FILE__ ));
+    wp_localize_script('inkthemes4', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
+    
+    //wp_enqueue_script('theme-itme5', 'https://code.jquery.com/jquery-1.12.4.js');
+    wp_enqueue_script('theme-itme6', 'https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js');
+     wp_enqueue_script('theme-itme7', 'https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js');
+    wp_enqueue_script('theme-itme8', 'https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js');
+    wp_enqueue_script('theme-itme9', 'https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js');
+}
+
+add_action('admin_head', 'add_css_js_galleryplug');
 
 function category_shortcode($attr)
 {
@@ -157,43 +177,7 @@ function category_shortcode($attr)
     a.fancybox:hover img {
         position: relative; z-index: 999; -o-transform: scale(1.03,1.03); -ms-transform: scale(1.03,1.03); -moz-transform: scale(1.03,1.03); -webkit-transform: scale(1.03,1.03); transform: scale(1.03,1.03);
     }
-	
-	.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
 
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    x-index: 1;
-    bottom: 109%;
-    left: 50%;
-    margin-left: -60px;
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-	
-}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -238,13 +222,10 @@ function category_shortcode($attr)
    			{
    		?>	
    			<td> 
-			<div class="tooltip">
+			<div>
 			<img class="fancybox" src="<?php echo $upload_dir[baseurl] . "/categoryimg/$res->imagenm"; ?>" data-big="<?php echo $upload_dir[baseurl] . "/categoryimg$res->imagenm"; ?>"/>
-			 <span class="tooltiptext">Zoom Out</span>
 		     </div>
 			</td>
-			
-  
 			<?php
 				$val++;
    				if($val==3)
