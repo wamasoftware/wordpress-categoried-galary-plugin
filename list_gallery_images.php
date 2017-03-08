@@ -30,6 +30,7 @@
 				<th>Delete</th>
 			</tr>
 		</thead>
+                <tbody>
 			<?php
 			$upload_dir = wp_upload_dir();
 			foreach($result as $res)
@@ -43,7 +44,7 @@
 					$coun=$res1->count;
 				}
 			?>
-			<tbody>
+			
 					<tr>
 						<td><?php echo $i++; ?></td>
 						<td><?php echo $res->categorynm; ?></td>
@@ -68,11 +69,12 @@
 						<td><a href="<?php echo admin_url('admin.php?page=add_new_gallery_images&id=' . $res->catid); ?>" title="Edit"><img src="<?php echo $plugpath.'/icons/edit.png'?>" height="30" width="30"></a></td>
 						<td><a href="<?php echo admin_url('admin.php?page=delete_gallery_title&id=' . $res->catid); ?>" onclick="return checkDelete()" title="delete"  ><img src="<?php echo $plugpath.'/icons/delete.png'?>" height="30" width="30"></a></td>
 					</tr>
-		</tbody>
+		
 			<?php
 				}
 				
 			?>
+                  </tbody>
 		</table>
 	</div>
 <html>

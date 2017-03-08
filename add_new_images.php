@@ -2,13 +2,13 @@
 ob_start();
 
 function add_new_gallery_images() {
+        $uploads = wp_upload_dir();
+        $base1 = $uploads[basedir];
+        $upload_path = $base1 . '/categoryimg'; 
     if (isset($_POST["btnsubmit"]) != "") {
         $datetime = current_time('mysql');
         $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
         $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
-        $uploads = wp_upload_dir();
-        $base1 = $uploads[basedir];
-        $upload_path = $base1 . '/categoryimg'; // The place the files will be uploaded to (currently a 'files' directory).
         $filename = $_FILES['fileup1']['name']; // Get the name of the file (including file extension).
         $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
         if (!in_array($ext, $allowed_filetypes))
@@ -37,9 +37,6 @@ function add_new_gallery_images() {
     } elseif (isset($_POST["btnupdate"]) != "") {
         $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
         $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
-        $uploads = wp_upload_dir();
-        $base1 = $uploads[basedir];
-        $upload_path = $base1 . '/categoryimg'; // The place the files will be uploaded to (currently a 'files' directory).
         $filename = $_FILES['catfile1']['name']; // Get the name of the file (including file extension).
         $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
         if (!in_array($ext, $allowed_filetypes))
@@ -100,7 +97,7 @@ function add_new_gallery_images() {
                         <label class="control-label col-sm-1">Image</label>
                     </div>
                     <div class="col-sm-1">
-                        <input name="catfile1" id="gallary-image" type="file" required>  
+                        <input name="catfile1" id="gallary-image"  type="file" required>  
                     </div>
                     <div class="col-sm-10">
                         <img  src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1"; ?>" height="100" width="100"/>
@@ -136,7 +133,7 @@ function add_new_gallery_images() {
                     <div class="form-group">
                         <label class="control-label col-sm-1">Image</label>
                         <div class="col-sm-4">
-                            <input name="fileup1"class="" id="gallary-image" type="file" required>
+                            <input name="fileup1" id="gallary-image" type="file" required>
                         </div>
                     </div>
                     <div class="form-group"> 
