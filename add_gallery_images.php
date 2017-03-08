@@ -70,18 +70,20 @@ if(isset($_POST['btnsubmit']))
 		?>
 		<div class="wrap">
 			<div class="manage-menus">
-				<table border='1' class="wp-list-table widefat fixed striped pages" style="text-align:center;"  >
-					
+                            <form method="post" name="f1" Action="<?php echo admin_url('admin.php?page=delete_gallery_album'); ?>" onSubmit="validate();">      
+				<table id="example" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                    <thead>
 							<tr>
-								<th style="text-align:center;font-weight:bold" >No</th>
-								<th style="text-align:center;"><input type="checkbox" name="select_all" id="select_all" value="" onClick="EnableCheckBox(this)" /></th>
-								<th style="text-align:center;font-weight:bold" >Image</th>
-								<th style="text-align:center;font-weight:bold" >Image name</th>
-								<th style="text-align:center;font-weight:bold" >Publish</th>
-								<th style="text-align:center;font-weight:bold" >Delete</th>
+								<th>No</th>
+								<th><input type="checkbox" name="select_all" id="select_all" value="" onClick="EnableCheckBox(this)" /></th>
+								<th>Image</th>
+								<th>Image name</th>
+								<th>Publish</th>
+								<th>Delete</th>
 							</tr>
+					</thead>
+                                        <tbody>	
 					
-                                      
 					<?php
 					foreach($result as $res)
 						{
@@ -89,13 +91,13 @@ if(isset($_POST['btnsubmit']))
 						$img1=$res->imagecrop;
 						$catid=$res->catid;
 						$pub=$res->publish;
+                                                $catid=$res->catid;
 					$upload_dir = wp_upload_dir();
 					?>
-					
+                                            
 					<tr>
-                                            <form method="post" name="f1" Action="<?php echo admin_url('admin.php?page=delete_gallery_album&catid='.$res->catid); ?>" onSubmit="validate();">
-                                              
 						<td><?php echo $i++; ?></td>
+                                                <input type="hidden" value="<?php echo $catid;?>" name="catid">
 						<td align="center"><input type="checkbox" name="checked_id[]" class="checkbox" value="<?php echo stripslashes($res->imgid); ?>" onClick="EnableSubmit(this)" id="cb1"/></td> 
 						<td><img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img"; ?>" height="100" width="150" title="Image" style="cursor:pointer" /></td>
 						<td>
@@ -122,13 +124,11 @@ if(isset($_POST['btnsubmit']))
 						}
 						
 					?>
-                                        	<tr><td></td><td><input type="submit" name="btn1" value="delete" id="btn1" disabled></td><td></td><td></td><td></td><td></td></tr>
-                                            </form>    
-                           
+                                        
+                               </tbody>
 				</table>
-                            
-                             
-				
+                                <input type="submit" name="btn1" value="Remove" id="btn1"class="button button-primary button-large"  disabled >
+                                </form>
                          
 			</div>
 		</div>

@@ -17,7 +17,7 @@ function delete_gallery_album()
      wp_redirect(admin_url("/admin.php?page=add_gallary_images&catid=". $res->catid , 'http'), 301);
 	
 
-   $catid=$_REQUEST['catid'];
+   $catid=$_POST['catid'];
    echo($catid);
     if (count($_POST['checked_id']) > 0 ) 
     {
