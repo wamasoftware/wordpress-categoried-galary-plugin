@@ -130,7 +130,7 @@ if(isset($_POST['btnsubmit']))
 		</div>
 	<script>
 	function checkDelete(){
-	    return confirm('Are you sure you  want to Delete?');
+	    return confirm('Are you sure you want to Delete?');
 	}
     jQuery(document).ready(function(){
     jQuery('#select_all').on('click',function(){

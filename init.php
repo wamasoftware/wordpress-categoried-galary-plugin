@@ -223,7 +223,7 @@ function category_shortcode($attr)
    		?>	
    			<td> 
 			<div>
-			<img class="fancybox" src="<?php echo $upload_dir[baseurl] . "/categoryimg/$res->imagenm"; ?>" data-big="<?php echo $upload_dir[baseurl] . "/categoryimg$res->imagenm"; ?>"/>
+                            <img class="fancybox" src="<?php echo $upload_dir[baseurl] . "/categoryimg/$res->imagenm"; ?>" data-big="<?php echo $upload_dir[baseurl] . "/categoryimg$res->imagenm"; ?>" width="150px" style="height: 110px;"/>
 		     </div>
 			</td>
 			<?php
@@ -231,7 +231,7 @@ function category_shortcode($attr)
    				if($val==3)
    				{
    					echo "</tr><tr>";
-   					$val=1;
+   					$val=0;
    				}	
    			}
    			?>

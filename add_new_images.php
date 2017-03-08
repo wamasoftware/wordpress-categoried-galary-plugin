@@ -1,8 +1,6 @@
 <?php
 ob_start();
 
-
-
 function add_new_gallery_images()
 {
  if(isset($_POST["btnsubmit"]) != "")
@@ -96,7 +94,6 @@ function add_new_gallery_images()
         {
             $galnm=$res->categorynm;
             $img1=$res->catimage;
-
         }
             $upload_dir = wp_upload_dir();
 ?>
@@ -104,13 +101,13 @@ function add_new_gallery_images()
     <h1>Gallery Title </h1>
     <form method="post" enctype="multipart/form-data">
         <div class="wrap gallary-image">
-        
          <div class="gallary-image card">
             <div id="titlediv" class="gallary-post">
+                
             <input name="gallery1" size="30" value="<?php echo $galnm; ?>" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text"  value="<?php echo $galnm; ?>" required>
         </div>
        <h1>
-            Images:
+            Image:
         </h1>
         <div class="gallary-image-upload">
             <input name="catfile1" id="gallary-image" type="file" required>  
@@ -125,26 +122,24 @@ function add_new_gallery_images()
     }
     else
     {
-
 ?>
 <div class="wrap">
     <h1>
         Gallery Title
     </h1>
     <form method="post" enctype="multipart/form-data">
-        <div class="gallary-image card">
-            <div id="titlediv" class="gallary-post">
+       
+        <div>
+            <div>
+                <label>Name</label>
                 <input name="gallery" size="30" value="" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text" required>
             </div>
-           <h1>
-                Images:
-            </h1>
-            <div class="gallary-image-upload">
+            <div>
+                <label>Image</label>
                 <input name="fileup1" id="gallary-image" type="file" required>
+           
             </div>
-            <div style="margin-top:10px;">
                 <input type="submit" value="Add gallery" name="btnsubmit" class="button button-primary button-large">
-            </div>
         </div>
     </form>
 </div>
