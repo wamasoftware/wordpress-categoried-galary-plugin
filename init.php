@@ -11,7 +11,8 @@ Author URI: http://wamasoftware.com
 ob_start();
 function gallery_options_install()
 {
-				$upload = wp_upload_dir();
+                            
+                            $upload = wp_upload_dir();
 			    $upload_dir = $upload['basedir'];
 			    $upload_dir = $upload_dir . '/categoryimg';
 			    if (! is_dir($upload_dir)) {
@@ -139,9 +140,7 @@ function gallery_plugin_remove_database()
 register_deactivation_hook( __FILE__, 'gallery_plugin_remove_database' );
 add_shortcode( 'image_gallery', 'category_shortcode' );
 function add_css_js_galleryplug() {
-    wp_enqueue_style('theme-itme1', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-    wp_enqueue_style('theme-itme2', 'https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css');
-    wp_enqueue_style('theme-itme3', 'https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css');
+ 
     
     wp_enqueue_script('inkthemes1', plugins_url( 'js/jquery.Jcrop.min.js' , __FILE__ ));
     wp_enqueue_script('inkthemes2', plugins_url( 'js/jquery.Jcrop.js' , __FILE__ ));
@@ -149,12 +148,7 @@ function add_css_js_galleryplug() {
     wp_enqueue_script('inkthemes5s', plugins_url( 'js/jquery.imgareaselect.min.js', __FILE__ ));
     wp_enqueue_style('inkthemes3', plugins_url( "/css/jquery.Jcrop.css" , __FILE__ ));
     wp_localize_script('inkthemes4', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
-    
-    //wp_enqueue_script('theme-itme5', 'https://code.jquery.com/jquery-1.12.4.js');
-    wp_enqueue_script('theme-itme6', 'https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js');
-     wp_enqueue_script('theme-itme7', 'https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js');
-    wp_enqueue_script('theme-itme8', 'https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js');
-    wp_enqueue_script('theme-itme9', 'https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js');
+
 }
 
 add_action('admin_head', 'add_css_js_galleryplug');
@@ -164,6 +158,7 @@ function category_shortcode($attr)
 ?>
 	
 <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
+
 
 <style type="text/css">
     a.fancybox img {
