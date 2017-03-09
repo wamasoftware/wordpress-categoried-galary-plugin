@@ -15,7 +15,7 @@ function image_resize_crop1()
                 {
                     $img1=$res->imagecrop;
                    ?>  
-<img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1";?>" align="center" id="cropbox" name="thumbnail" height="70%" width="70%"/>
+                    <img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1";?>" align="center" id="cropbox" name="thumbnail" height="70%" width="70%"/>
                     <?php
                 }
 ?>

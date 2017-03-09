@@ -88,13 +88,10 @@ function add_gallary_images() {
                         $catid = $res->catid;
                         $upload_dir = wp_upload_dir();
                         ?>
-
                         <tr>
                     <input type="hidden" value="<?php echo $catid; ?>" name="catid">
                     <td><input type="checkbox" name="checked_id[]" class="checkbox" value="<?php echo stripslashes($res->imgid); ?>" onClick="EnableSubmit(this)" id="cb1"/></td> 
                     <td><?php echo $i++; ?></td>
-
-
                     <td><img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img"; ?>" height="100" width="150" title="Image" style="cursor:pointer" /></td>
                     <td>
                         <?php echo $img1; ?>
@@ -117,13 +114,13 @@ function add_gallary_images() {
                     <?php
                 }
                 ?>
-
                 </tbody>
             </table>
             <div class="tablenav bottom">
                 <input type="submit" name="btn1" value="Remove" id="btn1"class="button button-primary button-large"  disabled >
                 <div class="tablenav-pages one-page">
                     <span class="displaying-num"><?php echo $i-1;?>items</span>
+             
                 </div>
             </div>
         </form>
