@@ -1,33 +1,33 @@
 === Plugin Name ===
 Contributors: (this should be a list of wordpress.org userid's)
-Tags: gallery,image,photo,image gallery,photo gallery,category wise images,gallery plugin
+Tags: gallery,image,photo,image gallery,photo gallery,category wise images,gallery plugin,photos
 Requires at least: 4.6
 Tested up to: 4.7
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-categoried gallery Allow You Add Unlimited Images To Gallery category wise.
+Categorized gallery Allow You Add Unlimited Images To Gallery category wise.
 
 == Description ==
 
-categorize gallery plugin in you add gallery category wise.you can add unlimited images in one category on your site.categorize gallery is provide fancy box animation on an image.categorize gallery provide shortcode category wise.it provide different shortcode for different category.you can publish or unpublish image and also a image category.
+Categorize gallery plugin in you add gallery category wise.you can add unlimited images in one category on your site.categorize gallery is provide fancy box animation on an image.categorize gallery provide shortcode category wise.it provide different shortcode for different category.you can publish or unpublish image and also a image category.
 
 Using shortcode, you can publish image or photo gallery into any Page or Post in your WordPress sites. You can use multiple gallery shortcode on multiple pages and posts to display various images galleries.
 
 **Features**
 
-* Multiple Gallery Option
-* Multiple Gallery Shortcode
+* Multiple Gallery Option.
+* Multiple Gallery Shortcode.
 * Simple & Very Easy Admin Gallery Dashboard
-* fancybox Animation Effect
+* Fancybox Animation Effect
 * Hover color opacity effect
 * Browser Compatible
 * Add Unlimited Images into Gallery
 * Multiple image upload at a same time in same category.
 * Multiple image delete at a same time in same category.
-* publish image/unpublish image
-* Publish category/unpublish category
+* publish/unpublish image
+* Publish/unpublish category
 
 == Installation ==
 

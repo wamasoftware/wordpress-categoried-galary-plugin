@@ -48,15 +48,11 @@ function add_new_gallery_images() {
         if ($filename != "")
         {
             $wpdb->update($table_name,array('categorynm' => $title, 'catimage' => $filename),array('catid' => $id),array('%s'), array('%s'));
-        } else {
-                 $wpdb->update(
-                    $table_name, //table
-                    array('categorynm' => $title, 'catimage' => $galimg), //data
-                    array('catid' => $id), //where
-                    array('%s'), //data format
-                    array('%s') //where format
-            );
-            }
+        } 
+        else
+        {
+             $wpdb->update($table_name,array('categorynm' => $title, 'catimage' => $galimg),array('catid' => $id),array('%s'), array('%s'));
+        }
             wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
     }
     if (isset($_POST["btncancel"]) != "") {
@@ -71,7 +67,7 @@ function add_new_gallery_images() {
             $galnm = $res->categorynm;
             $img1 = $res->catimage;
         }
-        ?>
+?>
         <div class="wrap">
             <div class="col-sm-offset-2 col-sm-10" style="padding: 15px 0">
                 <h1 class="" > Gallery Title </h1>
@@ -110,9 +106,9 @@ function add_new_gallery_images() {
                     <button type="submit" value="Update gallery" name="btnupdate" class="button button-primary button-large">Update gallery</button>
                 </p>       
             </form>
-            <?php
+<?php
         } else {
-            ?>
+?>
             <div class="wrap">
                 <div class="col-sm-offset-2 col-sm-10" style="padding: 15px 0">
                     <h1 class="" > Gallery Title </h1>
@@ -144,7 +140,7 @@ function add_new_gallery_images() {
                     </p>
                 </form>
             </div>
-            <?php
+<?php
         }
     }
 ?>
