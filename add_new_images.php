@@ -1,46 +1,40 @@
 <?php
+if (!defined('ABSPATH'))
+    exit;
 ob_start();
-?>
-
-<?php
-
 function add_new_gallery_images() {
-    $uploads = wp_upload_dir();
-    $base1 = $uploads[basedir];
-    $upload_path = $base1 . '/categoryimg';
-    if (isset($_POST["btnsubmit"]) != "")
-    {
-            $datetime = current_time('mysql');
-            $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
-            $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
-            $filename = $_FILES['fileup1']['name']; // Get the name of the file (including file extension).
-            $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
-            if (!in_array($ext, $allowed_filetypes))
-                die('The file you attempted to upload is not allowed.');
-            if (filesize($_FILES['userfile']['tmp_name']) > $max_filesize)
-                die('The file you attempted to upload is too large.');
-            if (!is_writable($upload_path))
-                die('You cannot upload to the specified directory, please CHMOD it to 777.');
-            if (move_uploaded_file($_FILES['fileup1']['tmp_name'], $upload_path . "/" . $filename)) {
-                //echo 'Your file upload was successful, view the file <a href="' . $upload_path . $filename . '" title="Your File">here</a>'; // It worked.
-            } else {
-                echo 'There was an error during the file upload.  Please try again.';
-            }
-            $title = $_POST['gallery'];
-            global $wpdb;
-            $table_name = $wpdb->prefix . "galcategory";
-            $p = 1;
-            if ($title != "" && $filename != "") {
-                $wpdb->insert($table_name, array('categorynm' => $title, 'catimage' => $filename, 'date' => $datetime, 'publish' => $p
-                        )
-                );
-                wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
-            } else {
-                echo '<div id="message" class="updated notice notice-success is-dismissible">please enter name and upload image.</div>';
-            }
-    }
-    elseif (isset($_POST["btnupdate"]) != "") 
-     {
+    $gallery = new Categorised_Gallery_plugin();
+    $upload_path = $gallery->dir_path;
+    if (isset($_POST["btnsubmit"]) != "") {
+        $datetime = current_time('mysql');
+        $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
+        $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
+        $filename = $_FILES['fileup1']['name']; // Get the name of the file (including file extension).
+        $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
+        if (!in_array($ext, $allowed_filetypes))
+            die('The file you attempted to upload is not allowed.');
+        if (filesize($_FILES['userfile']['tmp_name']) > $max_filesize)
+            die('The file you attempted to upload is too large.');
+        if (!is_writable($upload_path))
+            die('You cannot upload to the specified directory, please CHMOD it to 777.');
+        if (move_uploaded_file($_FILES['fileup1']['tmp_name'], $upload_path . "/" . $filename)) {
+            //echo 'Your file upload was successful, view the file <a href="' . $upload_path . $filename . '" title="Your File">here</a>'; // It worked.
+        } else {
+            echo 'There was an error during the file upload.  Please try again.';
+        }
+        $title = $_POST['gallery'];
+        global $wpdb;
+        $table_name = $wpdb->prefix . "galcategory";
+        $p = 1;
+        if ($title != "" && $filename != "") {
+            $wpdb->insert($table_name, array('categorynm' => $title, 'catimage' => $filename, 'date' => $datetime, 'publish' => $p
+                    )
+            );
+            wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
+        } else {
+            echo '<div id="message" class="updated notice notice-success is-dismissible">please enter name and upload image.</div>';
+        }
+    } elseif (isset($_POST["btnupdate"]) != "") {
             $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
             $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
             $filename = $_FILES['catfile1']['name']; // Get the name of the file (including file extension).
@@ -60,8 +54,7 @@ function add_new_gallery_images() {
             $galimg = $_POST['catfile2'];
             global $wpdb;
             $table_name = $wpdb->prefix . "galcategory";
-            if($filename!="")
-            {
+        if ($filename != "") {
             $wpdb->update(
                     $table_name, //table
                     array('categorynm' => $title, 'catimage' => $filename), //data
@@ -69,8 +62,7 @@ function add_new_gallery_images() {
                     array('%s'), //data format
                     array('%s') //where format
             );
-            }
-            else{
+        } else {
                  $wpdb->update(
                     $table_name, //table
                     array('categorynm' => $title, 'catimage' => $galimg), //data
@@ -95,7 +87,6 @@ function add_new_gallery_images() {
             $galnm = $res->categorynm;
             $img1 = $res->catimage;
         }
-        $upload_dir = wp_upload_dir();
         ?>
 
         <div class="wrap">
@@ -126,7 +117,7 @@ function add_new_gallery_images() {
                                 <label></label>
                             </th>
                             <td>
-                                <img  src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1"; ?>" height="100" width="100"/> 
+                                <img src="<?php echo $gallery->basedirurl . "/$img1"; ?>" height="100" width="100"/> 
                             </td>
                         </tr>
                     </tbody>

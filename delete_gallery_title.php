@@ -1,4 +1,6 @@
 <?php
+if (!defined('ABSPATH'))
+    exit;
 function delete_gallery_title()
 	{
 		 global $wpdb;

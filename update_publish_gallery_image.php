@@ -1,6 +1,6 @@
 <?php
-ob_start();
-
+if (!defined('ABSPATH'))
+    exit;
 function update_publish_gallery_image()
 {
 	$id=$_REQUEST['id'];

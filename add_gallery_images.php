@@ -1,8 +1,11 @@
 <?php
-ob_start();
+if (!defined('ABSPATH'))
+    exit;
 
 function add_gallary_images() {
     $url = admin_url('admin.php?page=gallery_list');
+        $gallery = new Categorised_Gallery_plugin();
+        $base1 = $gallery->upload_dir;
     ?>
 
     <div class="wrap">
@@ -34,11 +37,10 @@ function add_gallary_images() {
         $images_arr = array();
         $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
         $max_filesize = 524288;
-        $uploads = wp_upload_dir();
-        $base1 = $uploads[basedir];
+
 
         foreach ($_FILES['fileup']['name'] as $key => $val) {
-            $upload_path = $base1 . '/categoryimg';
+                $upload_path = $gallery->dir_path;
             $filename = $_FILES['fileup']['name'][$key];
             $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
             if (!in_array($ext, $allowed_filetypes))
@@ -88,11 +90,14 @@ function add_gallary_images() {
                         $catid = $res->catid;
                         $upload_dir = wp_upload_dir();
                         ?>
+
                         <tr>
                     <input type="hidden" value="<?php echo $catid; ?>" name="catid">
                     <td><input type="checkbox" name="checked_id[]" class="checkbox" value="<?php echo stripslashes($res->imgid); ?>" onClick="EnableSubmit(this)" id="cb1"/></td> 
                     <td><?php echo $i++; ?></td>
-                    <td><img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img"; ?>" height="100" width="150" title="Image" style="cursor:pointer" /></td>
+
+
+                        <td><img src="<?php echo $gallery->basedirurl . "/$img"; ?>" height="100" width="150" title="Image" style="cursor:pointer" /></td>
                     <td>
                         <?php echo $img1; ?>
                         <div>
@@ -114,13 +119,13 @@ function add_gallary_images() {
                     <?php
                 }
                 ?>
+
                 </tbody>
             </table>
             <div class="tablenav bottom">
                 <input type="submit" name="btn1" value="Remove" id="btn1"class="button button-primary button-large"  disabled >
                 <div class="tablenav-pages one-page">
-                    <span class="displaying-num"><?php echo $i-1;?>items</span>
-             
+                        <span class="displaying-num"><?php echo $i - 1; ?>items</span>
                 </div>
             </div>
         </form>
@@ -174,5 +179,5 @@ function add_gallary_images() {
     <?php
 }
 
-ob_flush();
+
 ?>

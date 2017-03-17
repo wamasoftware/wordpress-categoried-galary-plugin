@@ -1,6 +1,8 @@
 <?php
-
+if (!defined('ABSPATH'))
+    exit;
 function list_gallery_images() {
+    $gallery = new Categorised_Gallery_plugin();
     $plugpath = plugin_dir_url(__FILE__);
     $url = admin_url('admin.php?page=add_new_gallery_images');
     $i = 1;
@@ -48,7 +50,7 @@ function list_gallery_images() {
                     <tr>
                         <td><?php echo $i++; ?></td>
                         <td><?php echo $res->categorynm; ?></td>
-                        <td><img src="<?php echo $upload_dir[baseurl] . "/categoryimg/$img1"; ?>" height="100" width="100"/></td>
+                        <td><img src="<?php echo $gallery->basedirurl . "/$img1"; ?>" height="100" width="100"/></td>
                         <td><?php echo "$coun images" ?></td>
                         <td><?php echo "published <br>" . $res->date; ?></td>
                         <?php
