@@ -78,6 +78,4 @@ function update_publish_gallery_album()
          wp_redirect(admin_url("/admin.php?page=add_gallary_images&catid='$catid'" , 'http'), 301);
      }
 }
-ob_flush();
-
 ?>

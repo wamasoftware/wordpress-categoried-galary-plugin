@@ -62,7 +62,8 @@ Class Categorised_Gallery_plugin {
                 'Gallery', //menu title
                 'manage_options', //capabilities
                 'gallery_list', //menu slug
-                'list_gallery_images' //function
+                'list_gallery_images', //function
+                 plugin_dir_url(__FILE__) . 'icons/images.png'
         );
 
         add_submenu_page('gallery_list', //parent slug
@@ -124,7 +125,8 @@ Class Categorised_Gallery_plugin {
             global $wpdb;
             $tblname = $wpdb->prefix . "galimage";
             $result = $wpdb->get_results("SELECT * from $tblname WHERE catid = '$cat_id' AND publish='1' AND catpub='1'");
-            if (!empty($result)) {
+            if (!empty($result)) 
+            {
                 $val = 0;
                 ?>
                 <table>
@@ -144,6 +146,7 @@ Class Categorised_Gallery_plugin {
                         $val = 0;
                     }
                 }
+               
                 ?>
                 </table>
                 <?php

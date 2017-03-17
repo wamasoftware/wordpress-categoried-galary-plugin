@@ -63,10 +63,10 @@ function list_gallery_images() {
                             <td><a href="<?php echo admin_url('admin.php?page=update_publish_gallery_image&id=' . $res->catid . "&pubid=" . $pub); ?>" title="unpublish"><img src="<?php echo $plugpath . '/icons/unpublish.png' ?>" height="30" width="30"></a></td>
                         <?php }
                         ?>
-                        <td align="center"><a href="<?php echo admin_url('admin.php?page=add_gallary_images&catid=' . $res->catid); ?>" title="Add gallery images"><img src="<?php echo $plugpath . '/icons/add.png' ?>" height="30" width="30"></a></td>
+                        <td align="center"><a href="<?php echo admin_url('admin.php?page=add_gallary_images&catid=' . $res->catid); ?>" title="Add gallery images"><img src="<?php echo $plugpath . '/icons/addimg.png' ?>" height="30" width="30"></a></td>
                         <td><?php echo "[image_gallery field='$catid']" ?></td>
                         <td><a href="<?php echo admin_url('admin.php?page=add_new_gallery_images&id=' . $res->catid); ?>" title="Edit"><img src="<?php echo $plugpath . '/icons/edit.png' ?>" height="30" width="30"></a></td>
-                        <td><a href="<?php echo admin_url('admin.php?page=delete_gallery_title&id=' . $res->catid); ?>" onclick="return checkDelete()" title="delete"  ><img src="<?php echo $plugpath . '/icons/delete.png' ?>" height="30" width="30"></a></td>
+                        <td><a href="<?php echo admin_url('admin.php?page=delete_gallery_title&id=' . $res->catid); ?>" onclick="return checkDelete()" title="delete"  ><img src="<?php echo $plugpath . '/icons/delete.png' ?>"></a></td>
                     </tr>
 
                     <?php

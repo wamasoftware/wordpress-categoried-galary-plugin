@@ -48,15 +48,10 @@ Using shortcode, you can publish image or photo gallery into any Page or Post in
 6. Activate the plugin in the Plugin dashboard
 
 == Screenshots ==
-
-
-
-
-
-
-
-
-
+1)Add gallery.
+2)Add images into gallery.
+3)put shortcode into page.
+4)crop image.
 
 == Upgrade Notice ==
 

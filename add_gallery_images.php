@@ -37,8 +37,6 @@ function add_gallary_images() {
         $images_arr = array();
         $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
         $max_filesize = 524288;
-
-
         foreach ($_FILES['fileup']['name'] as $key => $val) {
                 $upload_path = $gallery->dir_path;
             $filename = $_FILES['fileup']['name'][$key];

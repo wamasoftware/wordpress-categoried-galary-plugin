@@ -5,16 +5,14 @@ ob_start();
 function add_new_gallery_images() {
     $gallery = new Categorised_Gallery_plugin();
     $upload_path = $gallery->dir_path;
+    $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
+    $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
     if (isset($_POST["btnsubmit"]) != "") {
         $datetime = current_time('mysql');
-        $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
-        $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
         $filename = $_FILES['fileup1']['name']; // Get the name of the file (including file extension).
         $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
         if (!in_array($ext, $allowed_filetypes))
             die('The file you attempted to upload is not allowed.');
-        if (filesize($_FILES['userfile']['tmp_name']) > $max_filesize)
-            die('The file you attempted to upload is too large.');
         if (!is_writable($upload_path))
             die('You cannot upload to the specified directory, please CHMOD it to 777.');
         if (move_uploaded_file($_FILES['fileup1']['tmp_name'], $upload_path . "/" . $filename)) {
@@ -27,21 +25,14 @@ function add_new_gallery_images() {
         $table_name = $wpdb->prefix . "galcategory";
         $p = 1;
         if ($title != "" && $filename != "") {
-            $wpdb->insert($table_name, array('categorynm' => $title, 'catimage' => $filename, 'date' => $datetime, 'publish' => $p
-                    )
-            );
+            $wpdb->insert($table_name, array('categorynm' => $title, 'catimage' => $filename, 'date' => $datetime, 'publish' => $p));
             wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
         } else {
             echo '<div id="message" class="updated notice notice-success is-dismissible">please enter name and upload image.</div>';
         }
     } elseif (isset($_POST["btnupdate"]) != "") {
-            $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); // These will be the types of file that will pass the validation.
-            $max_filesize = 524288; // Maximum filesize in BYTES (currently 0.5MB).
             $filename = $_FILES['catfile1']['name']; // Get the name of the file (including file extension).
             $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
-
-            if (filesize($_FILES['userfile']['tmp_name']) > $max_filesize)
-                die('The file you attempted to upload is too large.');
             if (!is_writable($upload_path))
                 die('You cannot upload to the specified directory, please CHMOD it to 777.');
             if (move_uploaded_file($_FILES['catfile1']['tmp_name'], $upload_path . "/" . $filename)) {
@@ -54,14 +45,9 @@ function add_new_gallery_images() {
             $galimg = $_POST['catfile2'];
             global $wpdb;
             $table_name = $wpdb->prefix . "galcategory";
-        if ($filename != "") {
-            $wpdb->update(
-                    $table_name, //table
-                    array('categorynm' => $title, 'catimage' => $filename), //data
-                    array('catid' => $id), //where
-                    array('%s'), //data format
-                    array('%s') //where format
-            );
+        if ($filename != "")
+        {
+            $wpdb->update($table_name,array('categorynm' => $title, 'catimage' => $filename),array('catid' => $id),array('%s'), array('%s'));
         } else {
                  $wpdb->update(
                     $table_name, //table
@@ -76,8 +62,6 @@ function add_new_gallery_images() {
     if (isset($_POST["btncancel"]) != "") {
         wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
     }
-    ?>
-    <?php
     if (isset($_REQUEST['id'])) {
         $id = $_REQUEST['id'];
         global $wpdb;
@@ -88,7 +72,6 @@ function add_new_gallery_images() {
             $img1 = $res->catimage;
         }
         ?>
-
         <div class="wrap">
             <div class="col-sm-offset-2 col-sm-10" style="padding: 15px 0">
                 <h1 class="" > Gallery Title </h1>
@@ -164,5 +147,4 @@ function add_new_gallery_images() {
             <?php
         }
     }
-    ob_flush();
-    ?>
+?>
