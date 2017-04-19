@@ -9,10 +9,10 @@ function add_gallary_images() {
     ?>
 
     <div class="wrap">
-        <h1>List of Gallery albums</h1>
+        <h1>List Of Gallery Images</h1>
         <hr/>
         <form method="post">
-            <input type="submit" name="btnsubmit" value="Add Gallery Albums" class="button button-primary button-large">
+            <input type="submit" name="btnsubmit" value="Add Gallery Images" class="button button-primary button-large">
             <button type="Button" onclick="javascript:window.location = '<?php echo $url ?>';" class="button button-primary button-large">Back</button>
         </form>
     </div>
@@ -23,7 +23,8 @@ function add_gallary_images() {
             <div class="wrap manage-menus">
                 <h3 class="">Add Album image</h3>
                 <div class="upload-images">
-                    <input type="file" multiple name="fileup[]" required>
+                    <input type="file" multiple name="fileup[]"  id="img1" required onchange="validateImage('img1')">
+                     <font color='red'> <div id="error"> </div> </font>
                 </div>
                 <div class="">
                     <input type="submit" value="save" name="btnsave" class="button button-primary button-large">
@@ -42,7 +43,7 @@ function add_gallary_images() {
             $filename = $_FILES['fileup']['name'][$key];
             $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
             if (!in_array($ext, $allowed_filetypes))
-                die('The file you attempted to upload is not allowed.');
+                //die('The file you attempted to upload is not allowed.');
             if (!is_writable($upload_path))
                 die('You cannot upload to the specified directory, please CHMOD it to 777.');
             if (move_uploaded_file($_FILES['fileup']['tmp_name'][$key], $upload_path . "/" . $filename)) {
@@ -53,9 +54,8 @@ function add_gallary_images() {
             global $wpdb;
             $table_name = $wpdb->prefix . "galimage";
             if ($filename != "") {
-
                 $wpdb->insert($table_name, array('catid' => $category, 'imagenm' => $filename, 'imagecrop' => $filename, 'publish' => '1', 'catpub' => '1'));
-            }
+                }
         }
     }
     $i = 1;
@@ -93,23 +93,24 @@ function add_gallary_images() {
                     <input type="hidden" value="<?php echo $catid; ?>" name="catid">
                     <td><input type="checkbox" name="checked_id[]" class="checkbox" value="<?php echo stripslashes($res->imgid); ?>" onClick="EnableSubmit(this)" id="cb1"/></td> 
                     <td><?php echo $i++; ?></td>
-
-
-                        <td><img src="<?php echo $gallery->basedirurl . "/$img"; ?>" height="100" width="150" title="Image" style="cursor:pointer" /></td>
+                    <td><a class="thumbnail-zoom" href="#thumb"><img src="<?php echo $gallery->basedirurl . "/$img"; ?>" width="150px" height="100px" border="0" /><span><img src="<?php echo $gallery->basedirurl . "/$img1"; ?>" height="250px" width="300px" /></span></a></td>
                     <td>
                         <?php echo $img1; ?>
                         <div>
-                            <a href="<?php echo admin_url('admin.php?page=image_resize_crop1&id=' . $res->imgid); ?>">Crop</a>&VerticalBar;<a href="<?php echo admin_url('admin.php?page=reset_image&id=' . $res->imgid); ?>">Reset</a>
+                            <a href="<?php echo admin_url('admin.php?page=image_resize_crop1&id=' . $res->imgid); ?>">Crop</a>
+                            <?php if($img != $img1){ ?>
+                            &VerticalBar;<a href="<?php echo admin_url('admin.php?page=reset_image&id=' . $res->imgid); ?>" onclick="return checkreset()">Reset</a>
+                            <?php } ?>
                         </div>
                     </td>
                     <?php
                     if ($pub == 1) {
                         ?>
-                        <td><a href="<?php echo admin_url('admin.php?page=update_publish_gallery_album&id=' . $res->imgid . "&pubid=" . $pub . "&catid=" . $catid); ?>" title="publish"><img src="<?php echo $plugpath . '/icons/publish.png' ?>" height="30" width="30"></a></td>
+                        <td><a href="<?php echo admin_url('admin.php?page=update_publish_gallery_album&id=' . $res->imgid . "&pubid=" . $pub . "&catid=" . $catid); ?>" title="publish" onclick="return checkunPublish()"><img src="<?php echo $plugpath . '/icons/publish.png' ?>" height="30" width="30"></a></td>
                         <?php
                     } else {
                         ?>
-                        <td><a href="<?php echo admin_url('admin.php?page=update_publish_gallery_album&id=' . $res->imgid . "&pubid=" . $pub . "&catid=" . $catid); ?>" title="unpublish"><img src="<?php echo $plugpath . '/icons/unpublish.png' ?>" height="30" width="30"></a></td>
+                        <td><a href="<?php echo admin_url('admin.php?page=update_publish_gallery_album&id=' . $res->imgid . "&pubid=" . $pub . "&catid=" . $catid); ?>" title="unpublish" onclick="return checkPublish()"><img src="<?php echo $plugpath . '/icons/unpublish.png' ?>" height="30" width="30"></a></td>
                     <?php }
                     ?>
                     <td><a href="<?php echo admin_url('admin.php?page=delete_gallery_album&id=' . $res->imgid); ?>" onclick="return checkDelete()" title="Delete"><img src="<?php echo $plugpath . '/icons/delete.png' ?>" height="30" width="30"></a></td>
@@ -144,12 +145,16 @@ function add_gallary_images() {
                     });
                 }
             });
-        });
-        jQuery(document).ready(function () {
-            jQuery('#example').DataTable();
-        });
+            jQuery(".checkbox").click(function(){
+		if(jQuery(".checkbox").length == jQuery(".checkbox:checked").length) {
+			jQuery("#select_all").attr("checked", "checked");
+		} else {
+			jQuery("#select_all").removeAttr("checked");
+		}
 
-        function EnableSubmit(val)
+            });
+        });
+         function EnableSubmit(val)
         {
             var sbmt = document.getElementById("btn1");
             var check = jQuery("input:checkbox:checked").length;
@@ -159,7 +164,7 @@ function add_gallary_images() {
             } else
             {
                 sbmt.disabled = false;
-            }
+            } 
         }
 
         function EnableCheckBox(val)
@@ -172,6 +177,32 @@ function add_gallary_images() {
             {
                 sbmt.disabled = true;
             }
+        }
+                function checkunPublish()
+                {
+                    return confirm('Are you sure you want to unpublish this image?');
+                }
+                function checkPublish()
+                {
+                    return confirm('Are you sure you want to publish this image?');
+                }
+                function checkreset()
+                {
+                    return confirm('Are you sure you want to reset this image?');
+                }
+    </script>
+   <script type="text/javascript">
+        function validateImage(id) {
+            var formData = new FormData();
+            var file = document.getElementById(id).files[0];
+            formData.append("Filedata", file);
+            var t = file.type.split('/').pop().toLowerCase();
+            if (t != "jpeg" && t != "jpg" && t != "png" && t != "bmp" && t != "gif") {
+                document.getElementById('error').innerHTML = "Please select only [.jpeg , .jpg , .png , .gif , .bmp] file";
+                document.getElementById(id).value = '';
+                return false;
+            }
+            return true;
         }
     </script>
     <?php

@@ -116,6 +116,7 @@ Class Categorised_Gallery_plugin {
         wp_enqueue_script('inkthemes2', plugins_url('js/jquery-pack.js', __FILE__));
         wp_enqueue_script('inkthemes5s', plugins_url('js/jquery.imgareaselect.min.js', __FILE__));
         wp_enqueue_style('inkthemes3', plugins_url("/css/jquery.Jcrop.css", __FILE__));
+        wp_enqueue_style('inkthemes35', plugins_url("/css/style11.css", __FILE__));
         wp_localize_script('inkthemes4', 'MyAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
     }
     function category_shortcode($attr) {

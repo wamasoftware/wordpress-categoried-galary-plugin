@@ -25,7 +25,6 @@ Using shortcode, you can publish image or photo gallery into any Page or Post in
 * Browser Compatible
 * Add Unlimited Images into Gallery
 * Multiple image upload at a same time in same category.
-* Multiple image delete at a same time in same category.
 * publish/unpublish image
 * Publish/unpublish category
 
