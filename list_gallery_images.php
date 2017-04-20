@@ -46,11 +46,10 @@ function list_gallery_images() {
                         $coun = $res1->count;
                     }
                     ?>
-
                     <tr>
                         <td><?php echo $i++; ?></td>
                         <td><a href="<?php echo admin_url('admin.php?page=add_gallary_images&catid=' . $res->catid); ?>" title="Add gallery images"><?php echo ucfirst($res->categorynm); ?></a></td>
-                        <td><a class="thumbnail-zoom" href="#thumb"><img src="<?php echo $gallery->basedirurl . "/$img1"; ?>" width="100px" height="100px" border="0" /><span><img src="<?php echo $gallery->basedirurl . "/$img1"; ?>" /></span></a></td>
+                        <td><a class="thumbnail-zoom" href="#thumb"><img src="<?php echo $gallery->basedirurl . "/$img1"; ?>" width="100px" height="100px" border="0" /><span><img src="<?php echo $gallery->basedirurl . "/$img1"; ?>" height="250px" width="300px" /></span></a></td>
                         <td><?php echo "$coun images" ?></td>
                         <td><?php echo "published <br>" . $res->date; ?></td>
                         <?php
@@ -68,35 +67,12 @@ function list_gallery_images() {
                         <td><a href="<?php echo admin_url('admin.php?page=add_new_gallery_images&id=' . $res->catid); ?>" title="Edit"><img src="<?php echo $plugpath . '/icons/edit.png' ?>" height="30" width="30"></a></td>
                         <td><a href="<?php echo admin_url('admin.php?page=delete_gallery_title&id=' . $res->catid); ?>" onclick="return checkDelete()" title="delete"  ><img src="<?php echo $plugpath . '/icons/delete.png' ?>"></a></td>
                     </tr>
-
                     <?php
                 }
                 ?>
             </tbody>
         </table>
     </div>
-    <html>
-        <head>
-            <script>
-
-                jQuery(document).ready(function () {
-                    jQuery('#example1').DataTable();
-                });
-                function checkDelete()
-                {
-                    return confirm('Are you sure you want to Delete All images of this gallery?');
-                }
-                function checkunPublish()
-                {
-                    return confirm('Are you sure you want to unpublish?');
-                }
-                function checkPublish()
-                {
-                    return confirm('Are you sure you want to publish?');
-                }
-            </script>
-        </head>
-    </html>
     <?php
 }
 ?>

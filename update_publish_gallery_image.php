@@ -46,7 +46,6 @@ function update_publish_gallery_image()
         wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
      }
 }
-
 function update_publish_gallery_album()
 {
 	$id=$_REQUEST['id'];

@@ -16,42 +16,6 @@ function image_resize_crop1() {
 <img src="<?php echo $gallery->basedirurl . "/$img1"; ?>" align="center" id="cropbox" name="thumbnail"/>
 <html>
     <head>
-<script type="text/javascript">
-                jQuery('document').ready(function () {
-                                 jQuery('#cropbox').imgAreaSelect({
-                        onSelectEnd: function (img, selection) {
-                            jQuery('input[name="x"]').val(selection.x1);
-                            jQuery('input[name="y"]').val(selection.y1);
-                            jQuery('input[name="w"]').val(selection.x2);
-                            jQuery('input[name="h"]').val(selection.y2);  
-                            jQuery( ".jcrop-holder" ).css( "margin", "100px" );
-                        }
-                    });
-                jQuery('#cropbox').Jcrop({
-                    aspectRatio: 1,
-                    onSelect: updateCoords
-                });
-                      jQuery('#cropbox').imgAreaSelect({
-                       aspectRatio: '1:1',
-                        onSelectChange: preview 
-                });
-            });
-            function updateCoords(c)
-            {
-                jQuery('#x').val(c.x);
-                jQuery('#y').val(c.y);
-                jQuery('#w').val(c.w);
-                jQuery('#h').val(c.h);
-                }
-                ;
-            function checkCoords()
-            {
-                    if (parseInt(jQuery('#w').val()))
-                        return true;
-                alert('Select where you want to Crop.');
-                return false;
-            };
-        </script>
 </head>
 <div id="outer">
     <div class="jcExample">

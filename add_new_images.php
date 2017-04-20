@@ -38,7 +38,7 @@ function add_new_gallery_images() {
         }
     } elseif (isset($_POST["btnupdate"]) != "") {
             $filename = $_FILES['catfile1']['name']; // Get the name of the file (including file extension).
-            $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.ico'); 
+            $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.bmp'); 
             $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1); // Get the extension from the filename.
             if (!in_array($ext, $allowed_filetypes))
                     
@@ -68,8 +68,7 @@ function add_new_gallery_images() {
         else
         {
              $wpdb->update($table_name,array('categorynm' => $title, 'catimage' => $galimg),array('catid' => $id),array('%s'), array('%s'));
-              wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);  
-            
+              wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);   
         }      
     }
     if (isset($_POST["btncancel"]) != "") {
@@ -159,23 +158,6 @@ function add_new_gallery_images() {
                     </p>
                 </form>
             </div> 
-            <script type="text/javascript">
-                function validate_fileupload(fileName)
-                    {
-                        var allowed_extensions = new Array("jpg","png","gif","jpeg","bmp");
-                        var file_extension = fileName.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
-
-                        for(var i = 0; i <= allowed_extensions.length; i++)
-                        {
-                            if(allowed_extensions[i]==file_extension)
-                            {
-                                return true; // valid file extension
-                            }
-                        }
-                        document.getElementById('error').innerHTML = "Please select only [.jpeg , .jpg , .png , .gif , .bmp] file";
-                        return false;
-                    }
-             </script>
 <?php
         }
     }
