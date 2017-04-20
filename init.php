@@ -57,7 +57,10 @@ Class Categorised_Gallery_plugin {
         dbDelta($sql1);
     } 
     
-    function gallery_menu() {
+    function gallery_menu() {        
+        
+        $addgalleryimages = new AddGalleryImage();                                
+        $addgallery = new AddNewgallery();
         add_menu_page('Gallery', //page title
                 'Gallery', //menu title
                 'manage_options', //capabilities
@@ -67,13 +70,13 @@ Class Categorised_Gallery_plugin {
         );
 
         add_submenu_page('gallery_list', //parent slug
-                'Add New category ', //page title
-                'Add New category', //menu title
+                'Add New Gallery ', //page title
+                'Add New Gallery ', //menu title
                 'manage_options', //capability
                 'add_new_gallery_images', //menu slug
-                'add_new_gallery_images'); //function
+               array($addgallery,'add_new_gallery_images')); //function
 
-        add_submenu_page(null, 'List gallery album', 'list gallery album', 'manage_options', 'add_gallary_images', 'add_gallary_images');
+        add_submenu_page(null, 'List gallery album', 'list gallery album', 'manage_options', 'add_gallary_images', array($addgalleryimages,'add_gallary_images_list'));
         add_submenu_page(null, 'delete gallery album', 'delete gallery album', 'manage_options', 'delete_gallery_album', 'delete_gallery_album');
         add_submenu_page(null, 'delete gallery title', 'delete gallery title', 'manage_options', 'delete_gallery_title', 'delete_gallery_title');
         add_submenu_page(null, 'user gallery publish', 'user gallery publish', 'manage_options', 'update_publish_gallery_image', 'update_publish_gallery_image');
