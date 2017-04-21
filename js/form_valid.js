@@ -1,7 +1,9 @@
-
+function checkmultipledelete(){
+    return confirm('Are you sure you want to Delete?');
+}
 function checkDeleteimg()
 {
-    return confirm('Are you sure you  want to Delete?');
+    return confirm('Are you sure you want to Delete?');
 }
 function checkunimgPublish()
 {

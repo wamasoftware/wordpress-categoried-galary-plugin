@@ -2,7 +2,6 @@
 
 if (!defined('ABSPATH'))
     exit;
-define('ROOTDIRPATH', plugin_dir_path(__FILE__));
 
 Class AddGalleryImage {
 
@@ -14,6 +13,8 @@ Class AddGalleryImage {
         $this->url = admin_url('admin.php?page=gallery_list');
         $this->gallery = new Categorised_Gallery_plugin();
         $this->plugpath = plugin_dir_url(__FILE__);
+        $this->deletegalleryimages = new DeleteGalleryImages();
+        $this->obj = array($this->deletegalleryimages, 'delete_multiple_image');
     }
 
     public function add_gallary_images_list() {
@@ -55,11 +56,9 @@ Class AddGalleryImage {
     }
 
     function displayImages($category) {
-        $i = 1;
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
         $this->result = $wpdb->get_results("SELECT * from $table_name where catid='$category'");
     }
 
 }
-?>

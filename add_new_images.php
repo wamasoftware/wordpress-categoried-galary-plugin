@@ -3,7 +3,6 @@
 if (!defined('ABSPATH'))
     exit;
 ob_start();
-define('ROOTDIRPATH', plugin_dir_path(__FILE__));
 
 class AddNewgallery {
 
@@ -84,4 +83,3 @@ class AddNewgallery {
     }
 
 }
-?>

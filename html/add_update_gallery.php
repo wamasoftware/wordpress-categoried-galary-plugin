@@ -21,7 +21,7 @@ $img1 = $res->catimage;
                         <label>Gallery Title</label>
                     </th>
                     <td>
-                        <input name="gallery1" size="30" class="form-control" value="<?php echo $galnm; ?>" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text"  value="<?php echo $galnm; ?>" required>
+                        <input name="gallery1" size="30" class="form-control" value="<?php echo $galnm; ?>" id="title" placeholder="Gallery Title" spellcheck="true" autocomplete="on" type="text"  value="<?php echo $galnm; ?>" required>
                     </td>
                 </tr>
                 <tr class="form-field">
@@ -44,8 +44,9 @@ $img1 = $res->catimage;
             </tbody>
         </table>
         <p class="submit">
-            <button type="submit" value="Cancel" name="btncancel" class="button button-primary button-large" style="margin-right: 10px;" formnovalidate>Cancel</button>
-            <button type="submit" value="Update Gallery" name="btnupdate" class="button button-primary button-large">Update Gallery</button>
+            
+            <button type="submit" value="Update Gallery" name="btnupdate" class="button button-primary button-large" style="margin-right: 10px;">Update Gallery</button>
+            <button type="submit" value="Cancel" name="btncancel" class="button button-primary button-large" formnovalidate>Cancel</button>
         </p>       
     </form>
 </div>
@@ -64,7 +65,7 @@ $img1 = $res->catimage;
                             <label for="gallery">Gallery Title</label>
                         </th>
                         <td>
-                            <input name="gallery" value="" id="title" placeholder="Gallary Title" spellcheck="true" autocomplete="on" type="text" required>
+                            <input name="gallery" value="" id="title" placeholder="Gallery Title" spellcheck="true" autocomplete="on" type="text" required>
                         </td>
                     </tr>
                     <tr class="form-field">
@@ -78,9 +79,9 @@ $img1 = $res->catimage;
                     </tr>
                 </tbody>
             </table>
-            <p class="submit">
-                <button type="submit" value="Cancel" name="btncancel" class="button button-primary button-large" style="margin-right: 10px;" formnovalidate>Cancel</button>
-                <button type="submit" value="Add Gallery" name="btnsubmit" class="button button-primary button-large">Add Gallery</button>
+            <p class="submit"> 
+                <button type="submit" value="Add Gallery" name="btnsubmit" class="button button-primary button-large" style="margin-right: 10px;">Add Gallery</button>
+                <button type="submit" value="Cancel" name="btncancel" class="button button-primary button-large"  formnovalidate>Cancel</button>
             </p>
         </form>
     </div> 

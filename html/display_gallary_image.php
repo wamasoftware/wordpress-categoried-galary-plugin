@@ -1,5 +1,5 @@
 <div class="wrap">
-    <form method="post" name="f1" Action="<?php echo admin_url('admin.php?page=delete_gallery_album'); ?>" onSubmit="validate();">      
+    <form method="post" name="f1" Action="<?php echo admin_url('admin.php?page=delete_multiple_image'); ?>" onsubmit="return checkmultipledelete()">      
         <table id="example" class="wp-list-table widefat fixed striped pages" width="100%" cellspacing="0">
             <thead>
                 <tr>
@@ -13,13 +13,14 @@
             </thead>
             <tbody>	
                 <?php
+                 $i = 1;
                 foreach ($this->result as $res) {
                     ?>
                     <tr>
                 <input type="hidden" value="<?php echo $res->catid; ?>" name="catid">
                 <td><input type="checkbox" name="checked_id[]" class="checkbox" value="<?php echo stripslashes($res->imgid); ?>" onClick="EnableSubmit(this)" id="cb1"/></td> 
                 <td><?php echo $i++; ?></td>
-                <td><a class="thumbnail-zoom" href="#thumb"><img src="<?php echo $this->gallery->basedirurl . "/$res->imagenm"; ?>" width="150px" height="100px" border="0" /><span><img src="<?php echo $this->gallery->basedirurl . "/$res->imagecrop"; ?>" height="250px" width="300px" /></span></a></td>
+                <td><a class="thumbnail-zoom" href="#thumb"><img src="<?php echo $this->gallery->basedirurl . "/$res->imagenm"; ?>" width="150px" height="100px" border="0" /><span><img src="<?php echo $this->gallery->basedirurl . "/$res->imagenm"; ?>" height="250px" width="300px" /></span></a></td>
                 <td>
                     <?php echo $res->imagecrop; ?>
                     <div>
