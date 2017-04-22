@@ -23,9 +23,11 @@ Class Categorised_Gallery_plugin {
         $this->upload_dir = $this->upload['basedir'];
         $this->basedirurl = $this->upload['baseurl'] . '/' . $this->folder;
         $this->dir_path = $this->upload_dir . '/' . $this->folder;
-        if (!is_dir($this->dir_path)) {
-            mkdir($this->dir_path, 0755);
-            chmod($this->dir_path, 0755);
+        if (file_exists($this->upload_dir)) {
+            if (!is_dir($this->dir_path)) {
+                mkdir($this->dir_path, 0755);
+                chmod($this->dir_path, 0755);
+            }
         }
     }
 
