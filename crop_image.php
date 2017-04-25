@@ -3,7 +3,7 @@
 if (!defined('ABSPATH'))
     exit;
 
-class ImageresizeCrop {
+Class  CGallery_ImageresizeCrop {
 
     public $upload_path;
     public $random;
@@ -13,10 +13,16 @@ class ImageresizeCrop {
         $this->upload_path = $this->gallery->dir_path . '/';
         $this->random = strtotime(date('Y-m-d H:i:s'));
     }
+    /**
+     * 
+     * @global type $wpdb
+     */
+    function CGallery_image_resize_crop1() {
 
-    function image_resize_crop1() {
-
-        $imgid = $_REQUEST["id"];
+        $retrieved_nonce = $_REQUEST['_wpnonce'];
+        if (!wp_verify_nonce($retrieved_nonce, 'crop_image'))
+            die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
+        $imgid = $_GET["id"];
         global $wpdb;
         $plugpath = plugin_dir_url(__FILE__);
         $table_name = $wpdb->prefix . "galimage";
@@ -25,13 +31,16 @@ class ImageresizeCrop {
             $img1 = $res->imagecrop;
         }
         require_once(ROOTDIRPATH . 'html/image_crop.php');
-        $this->crop_image($imgid);
+        $this->CGallery_crop_image($imgid);
     }
-
-    function crop_image($imgid) {
+    /**
+     * 
+     * @param type $imgid
+     */                
+    function CGallery_crop_image($imgid) {
         if (isset($_POST['crop_img'])) {
-            $thumb_width = $w = $_POST["w"];
-            $thumb_height = $h = $_POST["h"];
+            $thumb_width = $w = intval($_POST["w"]);
+            $thumb_height = $h = intval($_POST["h"]);
 
             function resizeThumbnailImage($thumb_image_name, $image, $width, $height, $start_width, $start_height, $scale) {
                 list($imagewidth, $imageheight, $imageType) = getimagesize($image);
@@ -71,11 +80,17 @@ class ImageresizeCrop {
                 return $thumb_image_name;
             }
 
-            $this->insert_image($imgid, $thumb_width, $thumb_height);
+            $this->CGallery_insert_image($imgid, $thumb_width, $thumb_height);
         }
     }
-
-    function insert_image($imgid, $thumb_width, $thumb_height) {
+    /**
+     * 
+     * @global type $wpdb
+     * @param type $imgid
+     * @param type $thumb_width
+     * @param type $thumb_height
+     */
+    function CGallery_insert_image($imgid, $thumb_width, $thumb_height) {
         global $wpdb;
         $table_name1 = $wpdb->prefix . "galimage";
         $result = $wpdb->get_results("SELECT * from $table_name1 where imgid='$imgid'");
@@ -91,19 +106,22 @@ class ImageresizeCrop {
         $thumb_nm = "thumb_" . $this->random . $filename;
         echo $thumb_nm . '<br>';
         echo $thumb_image_location;
-        $x1 = $_POST["x"];
-        $y1 = $_POST["y"];
-        $w = $_POST["w"];
-        $h = $_POST["h"];
+        $x1 = intval($_POST["x"]);
+        $y1 = intval($_POST["y"]);
+        $w = intval($_POST["w"]);
+        $h = intval($_POST["h"]);
         $scale = $thumb_width / $w;
         $cropped = resizeThumbnailImage($thumb_image_location, $large_image_location, $w, $h, $x1, $y1, $scale);
         $wpdb->update(
                 $table_name1, array('imagenm' => $thumb_nm), array('imgid' => $imgid), array('%s'), array('%s'));
         wp_redirect(admin_url("/admin.php?page=add_gallary_images&catid='$catid'", 'http'), 301);
     }
-
-    function reset_image() {
-        $imgid = $_REQUEST["id"];
+    /**
+     * 
+     * @global type $wpdb
+     */                
+    function CGallery_reset_image() {
+        $imgid = intval($_REQUEST["id"]);
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
         $result = $wpdb->get_results("SELECT * from $table_name where imgid='$imgid'");

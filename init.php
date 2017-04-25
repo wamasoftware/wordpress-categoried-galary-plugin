@@ -10,7 +10,7 @@ if (!defined('ABSPATH'))
     exit;
 define('ROOTDIRPATH', plugin_dir_path(__FILE__));
 
-Class Categorised_Gallery_plugin {
+Class Categorised_Gallery_plugin {  
 
     public $upload;
     public $upload_dir;
@@ -31,7 +31,7 @@ Class Categorised_Gallery_plugin {
         }
     }
 
-    function gallery_options_install() {
+    function CGallery_gallery_options_install() {
         global $wpdb;
         $table_name = $wpdb->prefix . "galcategory"; // Create Table name galctegory
         $charset_collate = $wpdb->get_charset_collate();
@@ -62,28 +62,31 @@ Class Categorised_Gallery_plugin {
         dbDelta($sql1);
     }
 
-    function gallery_menu() {
+    function CGallery_gallery_menu() {
 
-        $addgalleryimages = new AddGalleryImage();
-        $addgallery = new AddNewgallery();
-        $deletegalleryimages = new DeleteGalleryImages();
-        $deletegallerytitle = new DeleteGalleryTitle();
-        $listgallerytitle = new ListGalleryTitle();
-        $updatepublishgallery = new UpdatePublishGallery();
-        $imageresizecrop = new ImageresizeCrop();
-        add_menu_page('Gallery', 'Gallery', 'manage_options', 'gallery_list', array($listgallerytitle, 'list_gallery_images'), plugin_dir_url(__FILE__) . 'icons/images.png');
-        add_submenu_page('gallery_list', 'Add New Gallery ', 'Add New Gallery ', 'manage_options', 'add_new_gallery_images', array($addgallery, 'add_new_gallery_images'));
-        add_submenu_page(null, 'List gallery album', 'list gallery album', 'manage_options', 'add_gallary_images', array($addgalleryimages, 'add_gallary_images_list'));
-        add_submenu_page(null, 'delete gallery album', 'delete gallery album', 'manage_options', 'delete_gallery_album', array($deletegalleryimages, 'delete_gallery_album'));
-        add_submenu_page(null, 'delete multiple images', 'delete multiple images', 'manage_options', 'delete_multiple_image', array($deletegalleryimages, 'delete_multiple_image'));
-        add_submenu_page(null, 'delete gallery title', 'delete gallery title', 'manage_options', 'delete_gallery_title', array($deletegallerytitle, 'delete_gallery_title'));
-        add_submenu_page(null, 'user gallery publish', 'user gallery publish', 'manage_options', 'update_publish_gallery_image', array($updatepublishgallery, 'update_publish_gallery_image'));
-        add_submenu_page(null, 'user album publish', 'user album publish', 'manage_options', 'update_publish_gallery_album', array($updatepublishgallery, 'update_publish_gallery_album'));
-        add_submenu_page(null, 'user image crop', 'user image crop', 'manage_options', 'image_resize_crop1', array($imageresizecrop, 'image_resize_crop1'));
-        add_submenu_page(null, 'user image reset', 'user image reset', 'manage_options', 'reset_image', array($imageresizecrop, 'reset_image'));
+        $addgalleryimages = new  CGallery_AddGalleryImage();
+        $addgallery = new  CGallery_AddNewgallery();
+        $deletegalleryimages = new  CGallery_DeleteGalleryImages();
+        $deletegallerytitle = new  CGallery_DeleteGalleryTitle();
+        $listgallerytitle = new  CGallery_ListGalleryTitle();
+        $updatepublishgallery = new  CGallery_UpdatePublishGallery();
+        $imageresizecrop = new  CGallery_ImageresizeCrop();
+        add_menu_page('Gallery', 'Gallery', 'manage_options', 'gallery_list', array($listgallerytitle, 'CGallery_list_gallery_images'), plugin_dir_url(__FILE__) . 'icons/images.png');
+        add_submenu_page('gallery_list', 'Add New Gallery ', 'Add New Gallery ', 'manage_options', 'add_new_gallery_images', array($addgallery, 'CGallery_add_new_gallery_images'));
+        add_submenu_page(null, 'List gallery album', 'list gallery album', 'manage_options', 'add_gallary_images', array($addgalleryimages, 'CGallery_add_gallary_images_list'));
+        add_submenu_page(null, 'delete gallery album', 'delete gallery album', 'manage_options', 'delete_gallery_album', array($deletegalleryimages, 'CGallery_delete_gallery_album'));
+        add_submenu_page(null, 'delete multiple images', 'delete multiple images', 'manage_options', 'delete_multiple_image', array($deletegalleryimages, 'CGallery_delete_multiple_image'));
+        add_submenu_page(null, 'delete gallery title', 'delete gallery title', 'manage_options', 'delete_gallery_title', array($deletegallerytitle, 'CGallery_delete_gallery_title'));
+        add_submenu_page(null, 'user gallery publish', 'user gallery publish', 'manage_options', 'update_publish_gallery_image', array($updatepublishgallery, 'CGallery_update_publish_gallery_image'));
+        add_submenu_page(null, 'user album publish', 'user album publish', 'manage_options', 'update_publish_gallery_album', array($updatepublishgallery, 'CGallery_update_publish_gallery_album'));
+        add_submenu_page(null, 'user image crop', 'user image crop', 'manage_options', 'image_resize_crop1', array($imageresizecrop, 'CGallery_image_resize_crop1'));
+        add_submenu_page(null, 'user image reset', 'user image reset', 'manage_options', 'reset_image', array($imageresizecrop, 'CGallery_reset_image'));
     }
-
-    function gallery_plugin_remove_database() {
+    /**
+     * 
+     * @global type $wpdb
+     */        
+    function CGallery_gallery_plugin_remove_database() {
         global $wpdb;
         $table_name = $wpdb->prefix . "galcategory";
         $sql = "DROP TABLE IF EXISTS $table_name;";
@@ -113,18 +116,20 @@ Class Categorised_Gallery_plugin {
         rmdir($this->dir_path);
     }
 
-    function add_css_js_galleryplug() {
-        wp_enqueue_script('inkthemes1', plugins_url('js/jquery.Jcrop.min.js', __FILE__));
-        wp_enqueue_script('inkthemes2', plugins_url('js/jquery.Jcrop.js', __FILE__));
-        wp_enqueue_script('inkthemes2', plugins_url('js/jquery-pack.js', __FILE__));
-        wp_enqueue_script('inkthemes5s', plugins_url('js/jquery.imgareaselect.min.js', __FILE__));
+    function CGallery_add_css_js_galleryplug() {
+        wp_enqueue_script('cropimagejquery', includes_url()."/js/jcrop/jquery.Jcrop.min.js");
+        wp_enqueue_script('imageareaselect', includes_url()."/js/imgareaselect/jquery.imgareaselect.min.js");
         wp_enqueue_script('formvalid', plugins_url('js/form_valid.js', __FILE__));
         wp_enqueue_style('inkthemes3', plugins_url("/css/jquery.Jcrop.css", __FILE__));
-        wp_enqueue_style('inkthemes35', plugins_url("/css/style11.css", __FILE__));
-        wp_localize_script('inkthemes4', 'MyAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
+        wp_enqueue_style('inkthemes35', plugins_url("/css/style.css", __FILE__));
     }
-
-    function category_shortcode($attr) {
+    
+    /**
+     * Generate shortcode for gallery
+     * @global type $wpdb
+     * @param type $attr
+     */
+    function CGallery_category_shortcode($attr) {
         require_once(ROOTDIRPATH . 'html/shortcodescript.html');
         if (!empty($attr)) {
             $cat_id = $attr['field'];
@@ -169,11 +174,11 @@ Class Categorised_Gallery_plugin {
 }
 
 $gallery = new Categorised_Gallery_plugin();
-register_activation_hook(__FILE__, array($gallery, 'gallery_options_install')); // Register Tables
-register_deactivation_hook(__FILE__, array($gallery, 'gallery_plugin_remove_database')); // UnRegister Tables
-add_action('admin_menu', array($gallery, 'gallery_menu'));
-add_action('admin_head', array($gallery, 'add_css_js_galleryplug'));
-add_shortcode('image_gallery', array($gallery, 'category_shortcode'));
+register_activation_hook(__FILE__, array($gallery, 'CGallery_gallery_options_install')); // Register Tables
+register_deactivation_hook(__FILE__, array($gallery, 'CGallery_gallery_plugin_remove_database')); // UnRegister Tables
+add_action('admin_menu', array($gallery, 'CGallery_gallery_menu'));
+add_action('admin_head', array($gallery, 'CGallery_add_css_js_galleryplug'));
+add_shortcode('image_gallery', array($gallery, 'CGallery_category_shortcode'));
 
 require_once(ROOTDIRPATH . 'add_new_images.php');
 require_once(ROOTDIRPATH . 'list_gallery_images.php');

@@ -2,7 +2,7 @@
 if (!defined('ABSPATH'))
     exit;
 
-class ListGalleryTitle {
+Class  CGallery_ListGalleryTitle {
 
     public $url;
     public $plugpath;
@@ -13,7 +13,7 @@ class ListGalleryTitle {
         $this->url = admin_url('admin.php?page=add_new_gallery_images');
     }
 
-    function list_gallery_images() {
+    function CGallery_list_gallery_images() {
         $i = 1;
         global $wpdb;
         $table_name = $wpdb->prefix . "galcategory";

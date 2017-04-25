@@ -3,8 +3,8 @@
 if (!defined('ABSPATH'))
     exit;
 
-Class AddGalleryImage {
-
+Class CGallery_AddGalleryImage {
+  
     public $url;
     public $result;
     public $plugpath;
@@ -13,22 +13,28 @@ Class AddGalleryImage {
         $this->url = admin_url('admin.php?page=gallery_list');
         $this->gallery = new Categorised_Gallery_plugin();
         $this->plugpath = plugin_dir_url(__FILE__);
-        $this->deletegalleryimages = new DeleteGalleryImages();
+        $this->deletegalleryimages = new CGallery_DeleteGalleryImages();
         $this->obj = array($this->deletegalleryimages, 'delete_multiple_image');
     }
-
-    public function add_gallary_images_list() {
+    /**
+     * Add gallery images list
+     */
+    public function CGallery_add_gallary_images_list() {
 
         require_once(ROOTDIRPATH . 'html/add_gallary_images_header.php');
 
         $category = $_REQUEST['catid'];
-        $this->saveImage($category);
-        $this->displayImages($category);
+        $this->CGallery_saveImage($category);
+        $this->CGallery_displayImages($category);
 
         require_once(ROOTDIRPATH . 'html/display_gallary_image.php');
     }
-
-    function saveImage($category) {
+   /**
+    * 
+    * @global type $wpdb
+    * @param type $category
+    */
+    function CGallery_saveImage($category) {
         if (isset($_POST['btnsave']) && (isset($_POST['btnsave'])) != "") {
             $images_arr = array();
             $allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.bmp'); // These will be the types of file that will pass the validation.
@@ -41,7 +47,7 @@ Class AddGalleryImage {
                 //die('The file you attempted to upload is not allowed.');
                     if (!is_writable($upload_path))
                         die('You cannot upload to the specified directory, please CHMOD it to 777.');
-                if (move_uploaded_file($_FILES['fileup']['tmp_name'][$key], $upload_path . "/" . $filename . time())) {
+                if (move_uploaded_file($_FILES['fileup']['tmp_name'][$key], $upload_path . "/" . sanitize_file_name($filename . time()))) {
                     //echo 'Your file upload was successful, view the file <a href="' . $upload_path . $filename . '" title="Your File">here</a>'; // It worked.
                 } else {
                     echo 'There was an error during the file upload.  Please try again.';
@@ -49,13 +55,17 @@ Class AddGalleryImage {
                 global $wpdb;
                 $table_name = $wpdb->prefix . "galimage";
                 if ($filename != "") {
-                    $wpdb->insert($table_name, array('catid' => $category, 'imagenm' => $filename . time(), 'imagecrop' => $filename . time(), 'publish' => '1', 'catpub' => '1'));
+                    $wpdb->insert($table_name, array('catid' =>$category, 'imagenm' => sanitize_file_name($filename . time()), 'imagecrop' => $filename . time(), 'publish' => '1', 'catpub' => '1'));
                 }
             }
         }
     }
-
-    function displayImages($category) {
+   /**
+    * 
+    * @global type $wpdb
+    * @param type $category
+    */
+    function CGallery_displayImages($category) {
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
         $this->result = $wpdb->get_results("SELECT * from $table_name where catid='$category'");

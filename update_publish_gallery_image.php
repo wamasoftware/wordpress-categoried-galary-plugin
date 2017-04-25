@@ -3,11 +3,14 @@
 if (!defined('ABSPATH'))
     exit;
 
-class UpdatePublishGallery {
-
-    function update_publish_gallery_image() {
-        $id = $_REQUEST['id'];
-        $pubid = $_REQUEST['pubid'];
+Class  CGallery_UpdatePublishGallery {
+     /**
+      * publish or unpublish gallery
+      * @global type $wpdb
+      */
+    function CGallery_update_publish_gallery_image() {
+        $id = intval($_GET['id']);
+        $pubid = intval($_GET['pubid']);
         global $wpdb;
         $table_name = $wpdb->prefix . "galcategory";
         $table_name1 = $wpdb->prefix . "galimage";
@@ -23,11 +26,14 @@ class UpdatePublishGallery {
             wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
         }
     }
-
-    function update_publish_gallery_album() {
-        $id = $_REQUEST['id'];
-        $pubid = $_REQUEST['pubid'];
-        $catid = $_REQUEST['catid'];
+    /**
+     * publish or unplublish images 
+     * @global type $wpdb
+     */
+    function CGallery_update_publish_gallery_album() {
+        $id = intval($_GET['id']);
+        $pubid = intval($_GET['pubid']);
+        $catid = intval($_GET['catid']);
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
         if ($pubid == 1) {

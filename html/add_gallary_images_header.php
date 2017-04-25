@@ -1,3 +1,4 @@
+
 <div class="wrap">
     <h1>List Of Gallery Images</h1>
     <hr/>    
@@ -11,7 +12,7 @@
         </div>
         <div class="">
             <input type="submit" value="Save" name="btnsave" class="button button-primary button-large">
-            <button type="Button" onclick="javascript:window.location = '<?php echo $this->url ?>';" class="button button-primary button-large">Back</button>            
+            <button type="Button" onclick="javascript:window.location = '<?php echo esc_url($this->url) ?>';" class="button button-primary button-large">Back</button>            
         </div>
     </div>
 </form>

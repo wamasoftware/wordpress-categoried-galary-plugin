@@ -3,17 +3,25 @@
 if (!defined('ABSPATH'))
     exit;
 
-class DeleteGalleryImages {
+Class  CGallery_DeleteGalleryImages {
 
     public function __construct() {
         $this->gallery = new Categorised_Gallery_plugin();
         $this->base1 = $this->gallery->upload_dir;
     }
-
-    function delete_gallery_album() {
+    /**
+     * 
+     * @global type $wpdb
+     * @return type
+     */
+    function CGallery_delete_gallery_album() {
+        $capability = apply_filters( 'gallery-capability', 'edit_others_posts' );
+        if ( ! current_user_can( $capability ) ) {
+            return;
+        }
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
-        $id = $_GET["id"];
+        $id = intval($_GET["id"]);
         $result = $wpdb->get_results("SELECT * from $table_name where imgid='$id'");
         foreach ($result as $res) {
             $catid = $res->catid;
@@ -22,11 +30,19 @@ class DeleteGalleryImages {
         $wpdb->query($wpdb->prepare("DELETE FROM $table_name WHERE imgid = %s", $id));
         unlink($this->base1 . "/categoryimg/" . $name);
         wp_redirect(admin_url("/admin.php?page=add_gallary_images&catid=" . $res->catid, 'http'), 301);
-        $this->delete_multiple_image();
+        $this->CGallery_delete_multiple_image();
     }
-
-    function delete_multiple_image() {
-        $catid = $_POST['catid'];
+   /**
+    * 
+    * @global type $wpdb
+    * @return type
+    */
+    function CGallery_delete_multiple_image() {
+        $capability = apply_filters( 'gallery-capability', 'edit_others_posts' );
+        if ( ! current_user_can( $capability ) ) {
+            return;
+        }
+        $catid = intval($_POST['catid']);
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
         if (count($_POST['checked_id']) > 0) {
@@ -43,7 +59,6 @@ class DeleteGalleryImages {
             }
         }
     }
-
 }
 
 
