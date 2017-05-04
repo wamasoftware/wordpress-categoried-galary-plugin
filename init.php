@@ -173,6 +173,7 @@ Class Categorised_Gallery_plugin {
 
 }
 
+
 $gallery = new Categorised_Gallery_plugin();
 register_activation_hook(__FILE__, array($gallery, 'CGallery_gallery_options_install')); // Register Tables
 register_deactivation_hook(__FILE__, array($gallery, 'CGallery_gallery_plugin_remove_database')); // UnRegister Tables

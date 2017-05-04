@@ -22,7 +22,7 @@ Class  CGallery_ImageresizeCrop {
         $retrieved_nonce = $_REQUEST['_wpnonce'];
         if (!wp_verify_nonce($retrieved_nonce, 'crop_image'))
             die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
-        $imgid = $_GET["id"];
+        $imgid = intval($_GET["id"]);
         global $wpdb;
         $plugpath = plugin_dir_url(__FILE__);
         $table_name = $wpdb->prefix . "galimage";

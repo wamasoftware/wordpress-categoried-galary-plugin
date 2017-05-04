@@ -24,7 +24,7 @@ Class  CGallery_DeleteGalleryTitle {
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
         $table_name1 = $wpdb->prefix . "galcategory";
-        $id = $_GET["id"];
+        $id = intval($_GET["id"]);
         $result = $wpdb->get_results("SELECT * from $table_name1 where catid='$id'");
         foreach ($result as $res) {
             $name = $res->catimage;

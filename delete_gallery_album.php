@@ -46,7 +46,7 @@ Class  CGallery_DeleteGalleryImages {
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
         if (count($_POST['checked_id']) > 0) {
-            $all = $_POST['checked_id'];
+            $all  = filter_input(INPUT_POST, 'checked_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY); 
             foreach ($all as $id1) {
                 $result1 = $wpdb->get_results("SELECT * from $table_name where imgid='$id1'");
                 foreach ($result1 as $res) {

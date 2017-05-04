@@ -23,7 +23,7 @@ Class CGallery_AddGalleryImage {
 
         require_once(ROOTDIRPATH . 'html/add_gallary_images_header.php');
 
-        $category = $_REQUEST['catid'];
+        $category = intval($_GET['catid']);
         $this->CGallery_saveImage($category);
         $this->CGallery_displayImages($category);
 
@@ -55,7 +55,7 @@ Class CGallery_AddGalleryImage {
                 global $wpdb;
                 $table_name = $wpdb->prefix . "galimage";
                 if ($filename != "") {
-                    $wpdb->insert($table_name, array('catid' =>$category, 'imagenm' => sanitize_file_name($filename . time()), 'imagecrop' => $filename . time(), 'publish' => '1', 'catpub' => '1'));
+                    $wpdb->insert($table_name, array('catid' =>$category, 'imagenm' => sanitize_file_name($filename . time()), 'imagecrop' =>sanitize_file_name($filename . time()), 'publish' => '1', 'catpub' => '1'));
                 }
             }
         }
@@ -70,5 +70,4 @@ Class CGallery_AddGalleryImage {
         $table_name = $wpdb->prefix . "galimage";
         $this->result = $wpdb->get_results("SELECT * from $table_name where catid='$category'");
     }
-
 }

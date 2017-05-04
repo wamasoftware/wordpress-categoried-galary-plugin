@@ -30,7 +30,9 @@ if (isset($_GET['id'])) {
                             <label>Gallery Title</label>
                         </th>
                         <td>
-                            <input name="gallery1" size="30" class="form-control" value="<?php echo esc_attr($galnm); ?>" id="title" placeholder="Gallery Title" spellcheck="true" autocomplete="on" type="text"  value="<?php echo $galnm; ?>" required maxlength="20">
+                            <input name="gallery1" size="30" class="form-control"
+                                   value="<?php echo esc_attr($galnm); ?>" id="title" placeholder="Gallery Title"
+                                   spellcheck="true" autocomplete="on" type="text" required maxlength="20">
                         </td>
                     </tr>
                     <tr class="form-field">
@@ -40,7 +42,7 @@ if (isset($_GET['id'])) {
                         <td>
                             <input name="catfile1" id="gallary-image"  type="file" onchange="validate_fileupload(this.value);">
                             <font color='red'> <div id="error"> </div> </font> 
-                            <input name="catfile2" id="gallary-image1" value="<?php echo $img1; ?>" type="hidden"> 
+                            <input name="catfile2" id="gallary-image1" value="<?php echo esc_attr($img1); ?>" type="hidden"> 
                         </td></tr>
                     <tr class="form-field">
                         <th scope="row">

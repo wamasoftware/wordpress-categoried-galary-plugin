@@ -1,7 +1,6 @@
 <?php
 if (!defined('ABSPATH'))
     exit;
-
 Class  CGallery_ListGalleryTitle {
 
     public $url;
