@@ -124,13 +124,24 @@ Class Categorised_Gallery_plugin {
         wp_enqueue_style('inkthemes35', plugins_url("/css/style.css", __FILE__));
     }
     
+    function CGallery_add_js_head()
+    {
+        wp_enqueue_script('fancyboxjs', plugins_url('js/jquery.fancybox-1.3.4.pack.min.js', __FILE__), array( 'jquery' ), '', false );
+        wp_enqueue_style('fancyboxcss', plugins_url("/css/jquery.fancybox-1.3.4.css", __FILE__));
+    }
+    
+    function CGallery_custom_js_css()
+    {
+        wp_enqueue_script('fancycustomjs', plugins_url("/js/fancybox.js", __FILE__));
+        wp_enqueue_style('fancycustomcss', plugins_url("/css/fanybox.css", __FILE__));
+    }        
     /**
      * Generate shortcode for gallery
      * @global type $wpdb
      * @param type $attr
      */
     function CGallery_category_shortcode($attr) {
-        require_once(ROOTDIRPATH . 'html/shortcodescript.html');
+        //require_once(ROOTDIRPATH . 'html/shortcodescript.html');
         if (!empty($attr)) {
             $cat_id = $attr['field'];
             global $wpdb;
@@ -177,8 +188,10 @@ Class Categorised_Gallery_plugin {
 $gallery = new Categorised_Gallery_plugin();
 register_activation_hook(__FILE__, array($gallery, 'CGallery_gallery_options_install')); // Register Tables
 register_deactivation_hook(__FILE__, array($gallery, 'CGallery_gallery_plugin_remove_database')); // UnRegister Tables
+add_action('wp_enqueue_scripts',array($gallery, 'CGallery_add_js_head'));
+add_action('wp_footer',array($gallery, 'CGallery_custom_js_css'));
 add_action('admin_menu', array($gallery, 'CGallery_gallery_menu'));
-add_action('admin_head', array($gallery, 'CGallery_add_css_js_galleryplug'));
+add_action('admin_enqueue_scripts', array($gallery, 'CGallery_add_css_js_galleryplug'));
 add_shortcode('image_gallery', array($gallery, 'CGallery_category_shortcode'));
 
 require_once(ROOTDIRPATH . 'add_new_images.php');
