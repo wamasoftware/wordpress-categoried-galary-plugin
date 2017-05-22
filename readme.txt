@@ -19,14 +19,14 @@ Using shortcode, you can publish image or photo gallery into any Page or Post in
 
 * Multiple Gallery Option.
 * Multiple Gallery Shortcode.
-* Simple & Very Easy Admin Gallery Dashboard
-* Fancybox Animation Effect
-* Hover color opacity effect
-* Browser Compatible
-* Add Unlimited Images into Gallery
+* Simple & Very Easy Admin Gallery Dashboard.
+* Fancybox Animation Effect in front.
+* Hover color opacity effect.
+* Browser Compatible.
+* Add Unlimited Images into Gallery.
 * Multiple image upload at a same time in same category.
-* publish/unpublish image
-* Publish/unpublish category
+* publish/unpublish image.
+* Publish/unpublish category.
 
 == Installation ==
 
@@ -39,12 +39,12 @@ Using shortcode, you can publish image or photo gallery into any Page or Post in
 
 **Uploading in WordPress Dashboard**
 
-1. Download `categorize gallery.zip`
-2. Navigate to the 'Add New' in the plugins dashboard
-3. Navigate to the 'Upload' area
-4. Select `categorize gallery.zip` from your computer
-5. Click 'Install Now'
-6. Activate the plugin in the Plugin dashboard
+1. Download `categorize gallery.zip`.
+2. Navigate to the 'Add New' in the plugins dashboard.
+3. Navigate to the 'Upload' area.
+4. Select `categorize gallery.zip` from your computer.
+5. Click 'Install Now'.
+6. Activate the plugin in the Plugin dashboard.
 
 == Screenshots ==
 1)Add gallery.
