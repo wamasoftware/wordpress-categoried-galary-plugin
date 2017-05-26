@@ -4,6 +4,7 @@
     <hr/>    
 </div>
 <form method="post" enctype="multipart/form-data">
+  <?php wp_nonce_field( 'addimages', 'addimg' );?>
     <div class="wrap manage-menus">
         <h3 class="">Add Gallery Image</h3>
         <div class="upload-images">

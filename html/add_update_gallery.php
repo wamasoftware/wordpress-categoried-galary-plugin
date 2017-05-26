@@ -23,6 +23,7 @@ if (isset($_GET['id'])) {
             <h1 class="" > Gallery Title </h1>
         </div>
         <form method="post" class="validate" enctype="multipart/form-data" onsubmit="return Validate(this);">
+            <?php wp_nonce_field( 'editgaltitle', 'edittitlegal' );?>
             <table id="createuser" class="form-table">
                 <tbody>
                     <tr class="form-field">
@@ -69,6 +70,7 @@ if (isset($_GET['id'])) {
             <h1 class="" > Gallery Title </h1>
         </div>
         <form method="post" class="validate" enctype="multipart/form-data">
+             <?php wp_nonce_field( 'addgaltitle', 'addtitlegal' );?>
             <table id="createuser" class="form-table">
                 <tbody>
                     <tr class="form-field">

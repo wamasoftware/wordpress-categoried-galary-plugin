@@ -39,6 +39,8 @@ Class  CGallery_ImageresizeCrop {
      */                
     function CGallery_crop_image($imgid) {
         if (isset($_POST['crop_img'])) {
+             if (isset($_POST['cropimage']) &&
+                    wp_verify_nonce($_POST['cropimage'], 'crop_image')) {
             $thumb_width = $w = intval($_POST["w"]);
             $thumb_height = $h = intval($_POST["h"]);
 
@@ -79,7 +81,9 @@ Class  CGallery_ImageresizeCrop {
                 }
                 return $thumb_image_name;
             }
-
+            } else {
+                die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
+            }
             $this->CGallery_insert_image($imgid, $thumb_width, $thumb_height);
         }
     }

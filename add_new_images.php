@@ -17,12 +17,26 @@ class CGallery_AddNewgallery {
      * Add new gallery images title
      */
     function CGallery_add_new_gallery_images() {
+        $capability = apply_filters('gallery-capability', 'edit_others_posts');
+        if (!current_user_can($capability)) {
+            return;
+        }
         $this->upload_path = $this->gallery->dir_path;
         $this->allowed_filetypes = array('.jpeg', '.png', '.jpg', '.gif', '.bmp');
-        if (isset($_POST["btnsubmit"]) != "") {
-            $this->CGallery_insert_gallery_image();
+        if (isset($_POST['btnsubmit']) && (isset($_POST['btnsubmit'])) != "") {
+            if (isset($_POST['addtitlegal']) &&
+                    wp_verify_nonce($_POST['addtitlegal'], 'addgaltitle')) {
+                $this->CGallery_insert_gallery_image();
+            } else {
+                die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
+            }
         } elseif (isset($_POST["btnupdate"]) != "") {
-            $this->CGallery_update_gallery_image();
+            if (isset($_POST['edittitlegal']) &&
+                    wp_verify_nonce($_POST['edittitlegal'], 'editgaltitle')) {
+                $this->CGallery_update_gallery_image();
+            } else {
+                die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
+            }
         }
         if (isset($_POST["btncancel"]) != "") {
             wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
