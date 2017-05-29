@@ -1,5 +1,6 @@
 <div class="wrap">
     <form method="post" name="f1" Action="<?php echo admin_url('admin.php?page=delete_multiple_image'); ?>" onsubmit="return checkmultipledelete()">      
+          <?php wp_nonce_field( 'deletemultipleimages', 'deleteimages' );?>
         <table id="example" class="wp-list-table widefat fixed striped pages" width="100%" cellspacing="0">
             <thead>
                 <tr>

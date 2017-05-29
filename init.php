@@ -9,7 +9,6 @@
 if (!defined('ABSPATH'))
     exit;
 define('ROOTDIRPATH', plugin_dir_path(__FILE__));
-
 Class Categorised_Gallery_plugin {  
 
     public $upload;

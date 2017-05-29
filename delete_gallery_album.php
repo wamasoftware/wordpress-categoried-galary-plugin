@@ -54,18 +54,25 @@ Class CGallery_DeleteGalleryImages {
         $catid = intval($_POST['catid']);
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
-        if (count($_POST['checked_id']) > 0) {
-            $all = filter_input(INPUT_POST, 'checked_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-            foreach ($all as $id1) {
-                $result1 = $wpdb->get_results("SELECT * from $table_name where imgid='$id1'");
-                foreach ($result1 as $res) {
-                    $catid = $res->catid;
-                    $name1 = $res->imagecrop;
+        if (isset($_POST['checked_id']) && (isset($_POST['checked_id'])) != "") {
+            if (count($_POST['checked_id']) > 0) {
+                if (isset($_POST['deleteimages']) &&
+                        wp_verify_nonce($_POST['deleteimages'], 'deletemultipleimages')) {
+                    $all = filter_input(INPUT_POST, 'checked_id', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+                    foreach ($all as $id1) {
+                        $result1 = $wpdb->get_results("SELECT * from $table_name where imgid='$id1'");
+                        foreach ($result1 as $res) {
+                            $catid = $res->catid;
+                            $name1 = $res->imagecrop;
+                        }
+                        unlink($this->base1 . "/categoryimg/" . $name1);
+                        $wpdb->query($wpdb->prepare("DELETE FROM $table_name WHERE imgid = %s", $id1));
+                        $redirect = self_admin_url('admin.php?page=add_gallary_images&catid=' . $catid);
+                        wp_redirect(add_query_arg('add_images_nonce', wp_create_nonce('add_images_' . $catid), $redirect));
+                    }
                 }
-                unlink($this->base1 . "/categoryimg/" . $name1);
-                $wpdb->query($wpdb->prepare("DELETE FROM $table_name WHERE imgid = %s", $id1));
-                $redirect = self_admin_url('admin.php?page=add_gallary_images&catid=' . $catid);
-                wp_redirect(add_query_arg('add_images_nonce', wp_create_nonce('add_images_' . $catid), $redirect));
+            } else {
+                die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
             }
         }
     }
