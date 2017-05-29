@@ -71,7 +71,7 @@ Class Categorised_Gallery_plugin {
         $listgallerytitle = new  CGallery_ListGalleryTitle();
         $updatepublishgallery = new  CGallery_UpdatePublishGallery();
         $imageresizecrop = new  CGallery_ImageresizeCrop();
-        add_menu_page('Gallery', 'Gallery', 'manage_options', 'gallery_list', array($listgallerytitle, 'CGallery_list_gallery_images'), plugin_dir_url(__FILE__) . 'icons/images.png');
+        add_menu_page('Gallery', 'Gallery', 'manage_options', 'gallery_list', array($listgallerytitle, 'CGallery_list_gallery_images'), plugin_dir_url(__FILE__) . 'icons/gallery-icon.png');
         add_submenu_page('gallery_list', 'Add New Gallery ', 'Add New Gallery ', 'manage_options', 'add_new_gallery_images', array($addgallery, 'CGallery_add_new_gallery_images'));
         add_submenu_page(null, 'List gallery album', 'list gallery album', 'manage_options', 'add_gallary_images', array($addgalleryimages, 'CGallery_add_gallary_images_list'));
         add_submenu_page(null, 'delete gallery album', 'delete gallery album', 'manage_options', 'delete_gallery_album', array($deletegalleryimages, 'CGallery_delete_gallery_album'));

@@ -83,34 +83,34 @@ class CGallery_AddNewgallery {
      * @global type $wpdb
      */
     function CGallery_update_gallery_image() {
-        global $wpdb;
-        $filename = $_FILES['catfile1']['name'];
-        $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1);
-        $id = intval($_REQUEST['id']);
-        $title = sanitize_text_field($_POST['gallery1']);
-        $galimg = sanitize_file_name($_POST['catfile2']);
-        $table_name = $wpdb->prefix . "galcategory";
-        if (strlen($title) > 20) {
-            echo $title = substr($title, 0, 20);
-        }
-        if ($filename != "") {
-            if (!in_array($ext, $this->allowed_filetypes)) {
-                echo "<div style='color:red;padding: 15px;' id='message' class='error notice'>Please select only [.jpeg , .jpg , .png , .gif , .bmp] file</div>";
-            } else {
-                if (!is_writable($this->upload_path))
-                    echo "<div style='color:red;padding: 15px;' id='message' class='error notice'>You cannot upload to the specified directory, please CHMOD it to 777.</div>";
-                if (move_uploaded_file($_FILES['catfile1']['tmp_name'], $this->upload_path . "/" . sanitize_file_name($filename . time()))) {
-                    //echo 'Your file upload was successful, view the file <a href="' . $upload_path . $filename . '" title="Your File">here</a>'; // It worked.
+            global $wpdb;
+            $filename = $_FILES['catfile1']['name'];
+            $ext = substr($filename, strpos($filename, '.'), strlen($filename) - 1);
+            $id = intval($_REQUEST['id']);
+            $title = sanitize_text_field($_POST['gallery1']);
+            $galimg = sanitize_file_name($_POST['catfile2']);
+            $table_name = $wpdb->prefix . "galcategory";
+            if (strlen($title) > 20) {
+                echo $title = substr($title, 0, 20);
+            }
+            if ($filename != "") {
+                if (!in_array($ext, $this->allowed_filetypes)) {
+                    echo "<div style='color:red;padding: 15px;' id='message' class='error notice'>Please select only [.jpeg , .jpg , .png , .gif , .bmp] file</div>";
                 } else {
-                    echo "<div style='color:red;padding: 15px;' id='message' class='error notice'>There was an error during the file upload.  Please try again.</div>";
+                    if (!is_writable($this->upload_path))
+                        echo "<div style='color:red;padding: 15px;' id='message' class='error notice'>You cannot upload to the specified directory, please CHMOD it to 777.</div>";
+                    if (move_uploaded_file($_FILES['catfile1']['tmp_name'], $this->upload_path . "/" . sanitize_file_name($filename . time()))) {
+                        //echo 'Your file upload was successful, view the file <a href="' . $upload_path . $filename . '" title="Your File">here</a>'; // It worked.
+                    } else {
+                        echo "<div style='color:red;padding: 15px;' id='message' class='error notice'>There was an error during the file upload.  Please try again.</div>";
+                    }
+                    $wpdb->update($table_name, array('categorynm' => $title, 'catimage' => sanitize_file_name($filename . time())), array('catid' => $id), array('%s'), array('%s'));
+                    wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
                 }
-                $wpdb->update($table_name, array('categorynm' => $title, 'catimage' => sanitize_file_name($filename . time())), array('catid' => $id), array('%s'), array('%s'));
+            } else {
+                $wpdb->update($table_name, array('categorynm' => trim($title), 'catimage' => $galimg), array('catid' => $id), array('%s'), array('%s'));
                 wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
             }
-        } else {
-            $wpdb->update($table_name, array('categorynm' => trim($title), 'catimage' => $galimg), array('catid' => $id), array('%s'), array('%s'));
-            wp_redirect(admin_url('/admin.php?page=gallery_list', 'http'), 301);
-        }
     }
 
 }

@@ -24,23 +24,23 @@
                 <td>
                     <?php echo $res->imagecrop; ?>
                     <div>
-                        <a href="<?php echo wp_nonce_url('admin.php?page=image_resize_crop1&id=' . $res->imgid,'crop_image'); ?>">Crop</a>
+                        <a href="<?php echo wp_nonce_url('admin.php?page=image_resize_crop1&id=' . $res->imgid,'cropimages_' . $res->imgid,'crop_image_nonce'); ?>">Crop</a>
                         <?php if ($res->imagenm != $res->imagecrop) { ?>
-                            &VerticalBar;<a href="<?php echo wp_nonce_url('admin.php?page=reset_image&id=' . $res->imgid,'check_reset'); ?>" onclick="return checkreset()">Reset</a>
+                            &VerticalBar;<a href="<?php echo wp_nonce_url('admin.php?page=reset_image&id=' . $res->imgid,'resetimage_' . $res->imgid,'reset_image_nonce'); ?>" onclick="return checkreset()">Reset</a>
                         <?php } ?>
                     </div>
                 </td>
                 <?php
                 if ($res->publish == 1) {
                     ?>
-                    <td><a href="<?php echo wp_nonce_url('admin.php?page=update_publish_gallery_album&id=' . $res->imgid . "&pubid=" . $res->publish . "&catid=" . $res->catid,'image_publish'); ?>" title="publish" onclick="return checkunimgPublish()"><img src="<?php echo $this->plugpath . '/icons/publish.png' ?>" height="30" width="30"></a></td>
+                    <td><a href="<?php echo wp_nonce_url('admin.php?page=update_publish_gallery_album&id=' . $res->imgid . "&pubid=" . $res->publish . "&catid=" . $res->catid,'publishimage_' . $res->imgid,'image_publish_nonce'); ?>" title="publish" onclick="return checkunimgPublish()"><img src="<?php echo $this->plugpath . '/icons/publish.png' ?>" height="30" width="30"></a></td>
                     <?php
                 } else {
                     ?>
-                    <td><a href="<?php echo wp_nonce_url('admin.php?page=update_publish_gallery_album&id=' . $res->imgid . "&pubid=" . $res->publish . "&catid=" . $res->catid,'image_publish'); ?>" title="unpublish" onclick="return checkimgPublish()"><img src="<?php echo $this->plugpath . '/icons/unpublish.png' ?>" height="30" width="30"></a></td>
+                    <td><a href="<?php echo wp_nonce_url('admin.php?page=update_publish_gallery_album&id=' . $res->imgid . "&pubid=" . $res->publish . "&catid=" . $res->catid,'publishimage_' . $res->imgid,'image_publish_nonce'); ?>" title="unpublish" onclick="return checkimgPublish()"><img src="<?php echo $this->plugpath . '/icons/unpublish.png' ?>" height="30" width="30"></a></td>
                 <?php }
                 ?>
-                <td><a href="<?php echo wp_nonce_url('admin.php?page=delete_gallery_album&id=' . $res->imgid,'image_delete'); ?>" onclick="return checkDeleteimg()" title="Delete"><img src="<?php echo $this->plugpath . '/icons/delete.png' ?>" height="30" width="30"></a></td>
+                <td><a href="<?php echo wp_nonce_url('admin.php?page=delete_gallery_album&id=' . $res->imgid,'deleteimages_' . $res->imgid,'image_delete_nonce'); ?>" onclick="return checkDeleteimg()" title="Delete"><img src="<?php echo $this->plugpath . '/icons/delete.png' ?>" height="30" width="30"></a></td>
                 </tr>
                 <?php
             }

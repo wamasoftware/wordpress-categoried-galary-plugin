@@ -33,24 +33,24 @@
                 ?>
                 <tr>
                     <td><?php echo $i++; ?></td>
-                    <td><a href="<?php echo wp_nonce_url('admin.php?page=add_gallary_images&catid=' . $res->catid,'add_images'); ?>" title="Add gallery images"><?php echo ucfirst($res->categorynm); ?></a></td>
+                    <td><a href="<?php echo wp_nonce_url('admin.php?page=add_gallary_images&catid=' . $res->catid,'add_images_' . $res->catid,'add_images_nonce'); ?>" title="Add gallery images"><?php echo ucfirst($res->categorynm); ?></a></td>
                     <td><a class="thumbnail-zoom" href="#thumb"><img src="<?php echo $this->gallery->basedirurl . "/$img1"; ?>" width="100px" height="100px" border="0" /><span><img src="<?php echo $this->gallery->basedirurl . "/$img1"; ?>" height="250px" width="300px" /></span></a></td>
                     <td><?php echo "$coun images" ?></td>
                     <td><?php echo "published <br>" . $res->date; ?></td>
                     <?php
                     if ($pub == 1) {
                         ?>
-                        <td><a href="<?php echo wp_nonce_url('admin.php?page=update_publish_gallery_image&id=' . $res->catid . "&pubid=" . $pub,'category_publish'); ?>" title="publish" onclick="return checkunPublish()"><img src="<?php echo $this->plugpath . '/icons/publish.png' ?>" height="30" width="30"></a></td>
+                        <td><a href="<?php echo wp_nonce_url('admin.php?page=update_publish_gallery_image&id=' . $res->catid . "&pubid=" . $pub,'publishimage_' . $res->catid,'category_publish_nonce'); ?>" title="publish" onclick="return checkunPublish()"><img src="<?php echo $this->plugpath . '/icons/publish.png' ?>" height="30" width="30"></a></td>
                         <?php
                     } else {
                         ?>
-                        <td><a href="<?php echo wp_nonce_url('admin.php?page=update_publish_gallery_image&id=' . $res->catid . "&pubid=" . $pub,'category_publish'); ?>" title="unpublish" onclick="return checkPublish()"><img src="<?php echo $this->plugpath . '/icons/unpublish.png' ?>" height="30" width="30"></a></td>
+                        <td><a href="<?php echo wp_nonce_url('admin.php?page=update_publish_gallery_image&id=' . $res->catid . "&pubid=" . $pub,'publishimage_' . $res->catid,'category_publish_nonce'); ?>" title="unpublish" onclick="return checkPublish()"><img src="<?php echo $this->plugpath . '/icons/unpublish.png' ?>" height="30" width="30"></a></td>
                     <?php }
                     ?>
-                    <td align="center"><a href="<?php echo wp_nonce_url('admin.php?page=add_gallary_images&catid=' . $res->catid,'add_images'); ?>" title="Add gallery images"><img src="<?php echo $this->plugpath . '/icons/addimg.png' ?>" height="30" width="30"></a></td>
+                    <td align="center"><a href="<?php echo wp_nonce_url('admin.php?page=add_gallary_images&catid=' . $res->catid,'add_images_' . $res->catid,'add_images_nonce'); ?>" title="Add gallery images"><img src="<?php echo $this->plugpath . '/icons/addimg.png' ?>" height="30" width="30"></a></td>
                     <td><?php echo "[image_gallery field='$catid']" ?></td>
-                    <td><a href="<?php echo  wp_nonce_url('admin.php?page=add_new_gallery_images&id=' . $res->catid, 'edit_title'); ?>" title="Edit"><img src="<?php echo $this->plugpath . '/icons/edit.png' ?>" height="30" width="30"></a></td>
-                    <td><a href="<?php echo wp_nonce_url('admin.php?page=delete_gallery_title&id=' . $res->catid,'delete_title'); ?>" onclick="return checkDelete()" title="delete"  ><img src="<?php echo $this->plugpath . '/icons/delete.png' ?>"></a></td>
+                    <td><a href="<?php echo  wp_nonce_url('admin.php?page=add_new_gallery_images&id=' . $res->catid, 'editimage_' . $res->catid, 'edit_title_nonce'); ?>" title="Edit"><img src="<?php echo $this->plugpath . '/icons/edit.png' ?>" height="30" width="30"></a></td>
+                    <td><a href="<?php echo wp_nonce_url('admin.php?page=delete_gallery_title&id=' . $res->catid,'deleteimage_' . $res->catid,'delete_title_nonce'); ?>" onclick="return checkDelete()" title="delete"  ><img src="<?php echo $this->plugpath . '/icons/delete.png' ?>"></a></td>
                 </tr>
                 <?php
             }

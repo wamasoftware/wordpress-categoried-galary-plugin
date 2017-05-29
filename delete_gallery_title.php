@@ -18,9 +18,10 @@ Class  CGallery_DeleteGalleryTitle {
         if ( ! current_user_can( $capability ) ) {
             return;
         }
-        $retrieved_nonce = $_REQUEST['_wpnonce'];
-        if (!wp_verify_nonce($retrieved_nonce, 'delete_title'))
+         if (!isset($_REQUEST['delete_title_nonce'], $_GET['id']) || !wp_verify_nonce($_REQUEST['delete_title_nonce'], 'deleteimage_' . $_GET['id'])) {
+
             die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
+        } else {
         global $wpdb;
         $table_name = $wpdb->prefix . "galimage";
         $table_name1 = $wpdb->prefix . "galcategory";
@@ -38,6 +39,7 @@ Class  CGallery_DeleteGalleryTitle {
         $wpdb->query($wpdb->prepare("DELETE FROM $table_name WHERE catid = %s", $id));
         $wpdb->query($wpdb->prepare("DELETE FROM $table_name1 WHERE catid = %s", $id));
         wp_redirect(admin_url("/admin.php?page=gallery_list", 'http'));
-    }
+        }
+     }
 
 }

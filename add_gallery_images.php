@@ -21,17 +21,17 @@ Class CGallery_AddGalleryImage {
      * Add gallery images list
      */
     public function CGallery_add_gallary_images_list() {
-
-        require_once(ROOTDIRPATH . 'html/add_gallary_images_header.php');
-       //if (isset($_GET['_wpnonce']) || !wp_verify_nonce($_GET['_wpnonce'], 'add_images')) {
-        $category = intval($_GET['catid']);
+      if (!isset( $_REQUEST['add_images_nonce'], $_GET['catid'] ) || ! wp_verify_nonce( $_REQUEST['add_images_nonce'], 'add_images_' . $_GET['catid'] ) ) {
+   
+          die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
+       }
+        else{   
+            require_once(ROOTDIRPATH . 'html/add_gallary_images_header.php');
+          $category = intval($_GET['catid']);
         $this->CGallery_saveImage($category);
         $this->CGallery_displayImages($category);
         require_once(ROOTDIRPATH . 'html/display_gallary_image.php');
-//       }
-//        else{
-//            die("<div style='color:red;padding: 15px;' id='message' class='error notice'>Failed Security Check</div>");
-//        }
+        }
 
         
     }
@@ -85,3 +85,4 @@ Class CGallery_AddGalleryImage {
     }
 
 }
+    
