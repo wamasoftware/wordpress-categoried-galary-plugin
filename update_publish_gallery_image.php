@@ -11,7 +11,7 @@ Class CGallery_UpdatePublishGallery {
      */
     function CGallery_update_publish_gallery_image() {
         $capability = apply_filters('gallery-capability', 'edit_others_posts');
-        if (!current_user_can($capability)) {
+        if (!is_admin() && !current_user_can($capability)) {
             return;
         }
         if (!isset($_REQUEST['category_publish_nonce'], $_GET['id']) || !wp_verify_nonce($_REQUEST['category_publish_nonce'], 'publishimage_' . $_GET['id'])) {
@@ -43,7 +43,7 @@ Class CGallery_UpdatePublishGallery {
      */
     function CGallery_update_publish_gallery_album() {
         $capability = apply_filters('gallery-capability', 'edit_others_posts');
-        if (!current_user_can($capability)) {
+        if (!is_admin() && !current_user_can($capability)) {
             return;
         }
         if (!isset($_REQUEST['image_publish_nonce'], $_GET['id']) || !wp_verify_nonce($_REQUEST['image_publish_nonce'], 'publishimage_' . $_GET['id'])) {

@@ -1,6 +1,6 @@
 <?php
 $capability = apply_filters('gallery-capability', 'edit_others_posts');
-if (!current_user_can($capability)) {
+if (!is_admin() && !current_user_can($capability)) {
     return;
 }
 ?> 

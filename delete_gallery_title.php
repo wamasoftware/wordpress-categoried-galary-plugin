@@ -15,7 +15,7 @@ Class  CGallery_DeleteGalleryTitle {
   */
     function CGallery_delete_gallery_title() {
         $capability = apply_filters( 'gallery-capability', 'edit_others_posts' );
-        if ( ! current_user_can( $capability ) ) {
+        if ( !is_admin() && ! current_user_can( $capability ) ) {
             return;
         }
          if (!isset($_REQUEST['delete_title_nonce'], $_GET['id']) || !wp_verify_nonce($_REQUEST['delete_title_nonce'], 'deleteimage_' . $_GET['id'])) {

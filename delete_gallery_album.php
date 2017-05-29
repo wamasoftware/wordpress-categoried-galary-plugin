@@ -17,7 +17,7 @@ Class CGallery_DeleteGalleryImages {
      */
     function CGallery_delete_gallery_album() {
         $capability = apply_filters('gallery-capability', 'edit_others_posts');
-        if (!current_user_can($capability)) {
+        if (!is_admin() &&!current_user_can($capability)) {
             return;
         }
         if (!isset($_REQUEST['image_delete_nonce'], $_GET['id']) || !wp_verify_nonce($_REQUEST['image_delete_nonce'], 'deleteimages_' . $_GET['id'])) {
@@ -48,7 +48,7 @@ Class CGallery_DeleteGalleryImages {
      */
     function CGallery_delete_multiple_image() {
         $capability = apply_filters('gallery-capability', 'edit_others_posts');
-        if (!current_user_can($capability)) {
+        if (!is_admin() && !current_user_can($capability)) {
             return;
         }
         $catid = intval($_POST['catid']);

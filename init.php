@@ -118,7 +118,7 @@ Class Categorised_Gallery_plugin {
     function CGallery_add_css_js_galleryplug() {
         wp_enqueue_script('cropimagejquery', includes_url()."/js/jcrop/jquery.Jcrop.min.js");
         wp_enqueue_script('imageareaselect', includes_url()."/js/imgareaselect/jquery.imgareaselect.min.js");
-        wp_enqueue_script('formvalid', plugins_url('js/form_valid.js', __FILE__));
+        wp_enqueue_script('formvalid', plugins_url('/js/form_valid.js', __FILE__));
         wp_enqueue_style('inkthemes3', plugins_url("/css/jquery.Jcrop.css", __FILE__));
         wp_enqueue_style('inkthemes35', plugins_url("/css/style.css", __FILE__));
     }

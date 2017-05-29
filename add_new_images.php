@@ -18,7 +18,7 @@ class CGallery_AddNewgallery {
      */
     function CGallery_add_new_gallery_images() {
         $capability = apply_filters('gallery-capability', 'edit_others_posts');
-        if (!current_user_can($capability)) {
+        if (!is_admin() && !current_user_can($capability)) {
             return;
         }
         $this->upload_path = $this->gallery->dir_path;

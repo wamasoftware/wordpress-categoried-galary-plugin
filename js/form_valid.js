@@ -1,4 +1,4 @@
-function checkmultipledelete(){
+function checkmultipledelete() {
     return confirm('Are you sure you want to Delete?');
 }
 function checkDeleteimg()
@@ -30,7 +30,7 @@ function checkPublish()
     return confirm('Are you sure you want to publish?');
 }
 
-//script for multiple delete images at a same time
+////script for multiple delete images at a same time
 jQuery(document).ready(function () {
     jQuery('#select_all').on('click', function () {
         if (this.checked) {
@@ -122,10 +122,10 @@ jQuery('document').ready(function () {
         aspectRatio: 1,
         onSelect: updateCoords
     });
-    jQuery('#cropbox').imgAreaSelect({
-        aspectRatio: '1:1',
-        onSelectChange: preview
-    });
+//    jQuery('#cropbox').imgAreaSelect({
+//        aspectRatio: '1:1',
+//        onSelectChange: preview
+//    });
 });
 function updateCoords(c)
 {
@@ -143,6 +143,4 @@ function checkCoords()
     return false;
 }
 ;
-
-
 
